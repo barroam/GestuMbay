@@ -1,0 +1,37 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.hero {
+    background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.205)), url('../../../../assets/images/image\ 15.png');
+
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 7rem 0;
+    height: 45rem;
+}
+
+
+
+.hero-text h1 {
+    font-family: 'Merriweatter';
+    font-size: 3.2rem;
+    font-weight: bold;
+    margin-top: 15rem;
+}
+
+.hero-text p {
+    font-family: 'Roboto';
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+.feature-section {
+    background-color: #f8f9fa;
+}
+.testimonial-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+}

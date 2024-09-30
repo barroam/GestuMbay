@@ -1,0 +1,39 @@
+<div class="container">
+    <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Nom</label>
+        <input id="name" formControlName="name" class="form-control" required>
+        <div *ngIf="inscriptionForm.get('name')?.invalid && inscriptionForm.get('name')?.touched" class="text-danger">
+          Nom requis
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input id="email" formControlName="email" class="form-control" required>
+        <div *ngIf="inscriptionForm.get('email')?.invalid && inscriptionForm.get('email')?.touched" class="text-danger">
+          Email requis
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input id="password" type="password" formControlName="password" class="form-control" required>
+        <div *ngIf="inscriptionForm.get('password')?.invalid && inscriptionForm.get('password')?.touched" class="text-danger">
+          Mot de passe requis
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <label for="password_confirmation" class="form-label">Confirmer le mot de passe</label>
+        <input id="password_confirmation" type="password" formControlName="password_confirmation" class="form-control" required>
+        <div *ngIf="inscriptionForm.hasError('mismatch') && inscriptionForm.get('password_confirmation')?.touched" class="text-danger">
+          Les mots de passe ne correspondent pas
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-success" [disabled]="inscriptionForm.invalid">S'inscrire</button>
+      <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+    </form>
+  </div>
+  

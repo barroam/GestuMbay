@@ -1,0 +1,18 @@
+
+.auth-container {
+  
+    background: #ffffff71;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  .form-container {
+    transition: opacity 0.3s ease;
+  }
+  .container {
+    margin-top: 10rem;
+
+  }
