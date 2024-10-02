@@ -1,0 +1,76 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Informations du demandeur</h2>
+    
+    <ul class="nav nav-pills nav-justified mb-4 gap-2">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Informations</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Éligibilité</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Ressources</a>
+      </li>
+    </ul>
+  
+    <form [formGroup]="infoDemandeForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label class="form-label">Quel est votre statut pour cette activité ?</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="demandeur" value="individuel" id="individual" checked>
+          <label class="form-check-label" for="individual">Individuel</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="demandeur" value="groupe" id="group">
+          <label class="form-check-label" for="group">Groupes</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="demandeur" value="association" id="association">
+          <label class="form-check-label" for="association">Associations</label>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="nom_demandeur" class="form-label">Nom du demandeur</label>
+        <input type="text" class="form-control" id="nom_demandeur" formControlName="nom_demandeur">
+        <div *ngIf="infoDemandeForm.get('nom_demandeur')?.invalid && infoDemandeForm.get('nom_demandeur')?.touched" class="text-danger">
+          <small *ngIf="infoDemandeForm.get('nom_demandeur')?.errors?.['required']">Le nom du demandeur est requis.</small>
+          <small *ngIf="infoDemandeForm.get('nom_demandeur')?.errors?.['maxlength']">Le nom ne peut pas dépasser 255 caractères.</small>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="adresse" class="form-label">Adresse</label>
+        <input type="text" class="form-control" id="adresse" formControlName="adresse">
+        <div *ngIf="infoDemandeForm.get('adresse')?.invalid && infoDemandeForm.get('adresse')?.touched" class="text-danger">
+          <small *ngIf="infoDemandeForm.get('adresse')?.errors?.['required']">L'adresse est requise.</small>
+          <small *ngIf="infoDemandeForm.get('adresse')?.errors?.['maxlength']">L'adresse ne peut pas dépasser 255 caractères.</small>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="cin_ninea" class="form-label">CIN/NINEA</label>
+        <input type="text" class="form-control" id="cin_ninea" formControlName="cin_ninea">
+        <div *ngIf="infoDemandeForm.get('cin_ninea')?.invalid && infoDemandeForm.get('cin_ninea')?.touched" class="text-danger">
+          <small *ngIf="infoDemandeForm.get('cin_ninea')?.errors?.['required']">Le CIN/NINEA est requis.</small>
+          <small *ngIf="infoDemandeForm.get('cin_ninea')?.errors?.['pattern']">Le CIN/NINEA doit être au format correct.</small>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="contact" class="form-label">Contact</label>
+        <input type="text" class="form-control" id="contact" formControlName="contact">
+        <div *ngIf="infoDemandeForm.get('contact')?.invalid && infoDemandeForm.get('contact')?.touched" class="text-danger">
+          <small *ngIf="infoDemandeForm.get('contact')?.errors?.['required']">Le contact est requis.</small>
+          <small *ngIf="infoDemandeForm.get('contact')?.errors?.['pattern']">Le contact doit commencer par 7 et être suivi de 8 chiffres.</small>
+        </div>
+      </div>
+      
+  
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary">Précédent</button>
+        <button type="submit" class="btn btn-success" [disabled]="infoDemandeForm.invalid">Suivant</button>
+      </div>
+    </form>
+  </div>
+  

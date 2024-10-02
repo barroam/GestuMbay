@@ -1,0 +1,9 @@
+/* src/app/header/header.component.css */
+.navbar {
+    margin-bottom: 20px;
+  }
+  
+  .form-control {
+    width: 200px; /* Ajuste la largeur selon tes préférences */
+  }
+  

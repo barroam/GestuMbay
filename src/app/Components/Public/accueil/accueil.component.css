@@ -1,37 +1,123 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-.hero {
-    background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.205)), url('../../../../assets/images/image\ 15.png');
 
+.section-hero {
+    display: flex;
+    max-height: 70vh;
+}
+.hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem;
+    background-color:#ffecc569 ;
+ 
+}
+.hero-image {
+    background-image: url('../../../../assets/images/image\ 15.png');
     background-size: cover;
     background-position: center;
-    color: white;
-    padding: 7rem 0;
-    height: 45rem;
+    min-height: 70vh;
 }
-
-
-
-.hero-text h1 {
-    font-family: 'Merriweatter';
-    font-size: 3.2rem;
+h1 span {
+    color: #1f8226;
+    font-family: 'Merriweather';
+}
+.btn-outline-custom {
+    background-color: transparent;
+    border: 2px solid #1f8226;
+    color: #1f8226;
     font-weight: bold;
-    margin-top: 15rem;
+}
+.btn-outline-custom:hover {
+    background-color: rgba(255, 255, 255, 0.788)  ;
+    border: 2px solid #000;
+    color: #000000;
+    font-weight: bold;
+}
+.btn-solid-custom {
+    background-color: #1f8226;
+    color: white;
+    font-weight: bold;
 }
 
-.hero-text p {
-    font-family: 'Roboto';
-    font-size: 1.5rem;
-    font-weight: 300;
-}
 .feature-section {
     background-color: #f8f9fa;
 }
 .testimonial-img {
-    width: 60px;
-    height: 60px;
+    width: 6rem;
+    height: 6rem;
     object-fit: cover;
     border-radius: 50%;
+    border: #1F8226 solid 0.01rem;
+}
+.acteurs{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100%;
+    background-color: #F4E3C1;
+ display: flex;
+ justify-content: center;
+ align-items: center;   
+ margin-left: -3.75rem;
+ margin-top: rem;
+position: absolute;
+border: #1F8226 solid;
+
+}
+.details{
+    margin-left: 4rem;
+}
+.photo-acteur{
+    margin-right: -4rem;
+}
+.temoin{
+    background-color:#ffecc569 ;
+}
+
+p{
+    font-family: 'roboto';
+    font-size: 1.1rem;
+    color: #5E5C5C;
+}
+.call-btn{
+   padding: 0.7rem 1rem ;
+    font-size: 1.2rem;
+    font-family:'Merriweather' ;
+    background-color: #1F8226;
+    color:#ffff;
+}
+.list {
+    font-family: 'Merriweather';
+    font-size: 1.2rem ;
+    color: #5E5C5C;
+    margin:0.2;
+
+}
+.text-green {
+    color: #28a745;
+}
+.bg-green {
+    background-color: #28a745;
+}
+.icon-box {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #28a745;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.footer-bottom {
+    background-color: #1f8226;
+    color: white;
+    text-align: center;  
+}
+.foo{
+    background-color: #ffff;
+    color: #1f8226;
+border-top: 0.2rem #1F8226 solid ;
 }
