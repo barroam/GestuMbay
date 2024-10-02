@@ -1,2 +1,48 @@
-<p>controle works!</p>
-<h1>hello</h1>
+<div class="container mt-4">
+    <h2 class="mb-4">Contrôle d'éligibilité</h2>
+    <ul class="nav nav-pills nav-justified mb-4 gap-2">
+        <li class="nav-item">
+          <button class="nav-link active" style="background-color: #1f8226; color: white;">Informations</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link active" style="background-color: #1f8226; color: white;">Éligibilité</button>
+          </li>
+        <li class="nav-item">
+          <button class="nav-link border " style="color: #1f8226;">Ressources</button>
+        </li>
+      </ul>
+    <form [formGroup]="eligibiliteForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="parcelNumber" class="form-label">Numéro de la parcelle</label>
+        <input type="text" class="form-control" id="parcelNumber" formControlName="numero_parcelle">
+        <div *ngIf="eligibiliteForm.get('numero_parcelle')?.invalid && eligibiliteForm.get('numero_parcelle')?.touched">
+          <small class="text-danger">Le numéro de parcelle est requis et doit être un entier.</small>
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <label for="area" class="form-label">Superficie en m²</label>
+        <input type="number" class="form-control" id="area" formControlName="hectare">
+        <div *ngIf="eligibiliteForm.get('hectare')?.invalid && eligibiliteForm.get('hectare')?.touched">
+          <small class="text-danger">La superficie est requise et doit être comprise entre 0 et 9999.99.</small>
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <label for="cultureType" class="form-label">Type de culture</label>
+        <select class="form-select" id="cultureType" formControlName="culture">
+          <option value="" disabled>Choisissez un type de culture</option>
+          <option *ngFor="let culture of typesDeCulture" [value]="culture">{{ culture }}</option>
+        </select>
+        <div *ngIf="eligibiliteForm.get('culture')?.invalid && eligibiliteForm.get('culture')?.touched">
+          <small class="text-danger">Le type de culture est requis.</small>
+        </div>
+      </div>
+  
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary">Précédent</button>
+        <button type="submit" class="btn btn-success" [disabled]="eligibiliteForm.invalid">Suivant</button>
+      </div>
+    </form>
+  </div>
+  
