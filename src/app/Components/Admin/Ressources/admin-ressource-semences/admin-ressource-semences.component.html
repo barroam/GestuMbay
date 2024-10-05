@@ -1,0 +1,51 @@
+<div class="container">
+    <h1>Gestion des Semences</h1>
+    <button (click)="openPopup()" class="add-btn">Ajouter une semence</button>
+    <table>
+      <thead>
+        <tr>
+          <th>Photo</th>
+          <th>Nom</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let semence of semences; trackBy: trackByFn">
+          <td>
+            <img class="shadow-sm rounded-1" [src]="semence.image" [alt]="semence.nom" width="70" height="70">
+          </td>
+          <td>{{ semence.nom }}</td>
+          <td>
+            <button (click)="openPopup(semence)" class="edit-btn btn btn-warning shadow-sm ">Modifier</button>
+            <button (click)="deleteSemence(semence.id)" class="delete-btn btn btn-danger shadow-sm ">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Popup pour ajouter/modifier une semence -->
+<!-- Popup pour ajouter/modifier une semence -->
+<div *ngIf="showPopup" class="popup-overlay d-flex justify-content-center align-items-center">
+    <div class="popup bg-white p-4 rounded shadow">
+      <h2 class="text-center text-success">{{ editingSemence ? 'Modifier' : 'Ajouter' }} une semence</h2>
+      <form [formGroup]="semenceForm" (ngSubmit)="saveSemence()">
+        <div class="mb-3">
+          <label for="nom" class="form-label">Nom:</label>
+          <input id="nom" formControlName="nom" required class="form-control" placeholder="Entrez le nom de la semence">
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">URL de l'image:</label>
+          <input id="image" formControlName="image" required class="form-control" placeholder="Entrez l'URL de l'image">
+        </div>
+        <div class="preview mb-3">
+          <img [src]="semenceForm.value.image" alt="Aperçu" class="img-fluid" *ngIf="semenceForm.value.image">
+        </div>
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-success">Sauvegarder</button>
+          <button type="button" (click)="closePopup()" class="btn btn-secondary">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

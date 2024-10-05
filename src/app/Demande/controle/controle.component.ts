@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ControleDemande } from '../../Models/controle-demande';
+import { ControleDemandesService } from '../../Services/Controle-demandes/controle-demandes.service';
 
 @Component({
   selector: 'app-controle',
@@ -10,41 +12,108 @@ import { Router } from '@angular/router';
   templateUrl: './controle.component.html',
   styleUrl: './controle.component.css'
 })
-export class ControleComponent {
+export class ControleComponent implements OnInit {
   eligibiliteForm: FormGroup;
-  
-  // Les types de cultures définis dans la base de données
-  typesDeCulture: string[] = ['vivriere', 'rente', 'horticole', 'industrielle', 'perenne'];
+  controleId: number | null = null;
 
-  constructor(private fb: FormBuilder, private router: Router) {
-    // Initialisation du formulaire réactif
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private controleService: ControleDemandesService,
+   
+  ) {
+    // Initialisation du formulaire
     this.eligibiliteForm = this.fb.group({
       numero_parcelle: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
       hectare: ['', [Validators.required, Validators.min(0), Validators.max(9999.99)]],
-      culture: ['', [Validators.required]],
+      culture: ['', [Validators.required]]
     });
   }
 
-  ngOnInit(): void {}
+  typesDeCulture: Array<'vivriere' | 'rente' | 'horticole' | 'industrielle' | 'perenne'> = [
+    'vivriere', 'rente', 'horticole', 'industrielle', 'perenne'
+  ];
 
-  onSubmit() {
-    if (this.eligibiliteForm.valid) {
-      const eligibiliteData = {
-        numero_parcelle: this.eligibiliteForm.value.numero_parcelle,
-        hectare: this.eligibiliteForm.value.hectare,
-        culture: this.eligibiliteForm.value.culture,
-      };
+  ngOnInit(): void {
+    // Récupérer l'ID de la demande stockée dans localStorage
+    const controleIdStr = sessionStorage.getItem('controleId');
+    const controleId = Number(controleIdStr);
 
-      console.log('Données du formulaire d\'éligibilité:', eligibiliteData);
-
-      // Si le formulaire est valide, vous pouvez soumettre les données à l'API
-      // Par exemple :
-      // this.someService.submitEligibilite(eligibiliteData).subscribe(response => {
-      //   console.log('Réponse du serveur:', response);
-      //   this.router.navigate(['/suivant']);
-      // });
+    if (controleId !== null && !isNaN(Number(controleId))) {
+      this.controleId = Number(controleIdStr);
+      this.loadControleDemande(this.controleId); // Charger les données si l'ID est valide
     } else {
-      console.error('Le formulaire contient des erreurs.');
+      this.controleId = null;
+      console.error('Aucun ID valide récupéré.');
     }
   }
+
+  loadControleDemande(id: number) {
+    console.log('Chargement de la demande avec ID :', id);
+  
+    this.controleService.getControleDemandeById(id).subscribe(
+      (controleDemande: ControleDemande | undefined) => {
+        console.log('Données récupérées après le mapping:', controleDemande); // Loguer la donnée après le mapping
+
+        if (controleDemande) {
+          // Mise à jour du formulaire avec les données récupérées
+          this.eligibiliteForm.patchValue({
+            numero_parcelle: controleDemande.numero_parcelle,
+            hectare: parseFloat(controleDemande.hectare),  // Conversion si nécessaire
+            culture: controleDemande.culture
+          });
+        } else {
+          console.error('Aucune donnée trouvée après le mapping.');
+        }
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération de la demande de contrôle :', error);
+      }
+    );
+  }
+
+  // Méthode de soumission du formulaire
+  onSubmit() {
+    if (this.eligibiliteForm.valid) {
+      const eligibiliteData: ControleDemande = this.eligibiliteForm.value;
+
+      if (this.controleId) {
+        // Si un ID est présent, mettre à jour la demande existante
+        this.controleService.updateControleDemande(this.controleId, eligibiliteData).subscribe(
+          (response: ControleDemande) => {
+            console.log('Demande mise à jour avec succès :', response);
+            this.router.navigate(['/demande-info-demandeur']);
+          },
+          (error) => {
+            console.error('Erreur lors de la mise à jour :', error);
+          }
+        );
+      } else {
+        // Sinon, créer une nouvelle demande
+        this.controleService.createControleDemande(eligibiliteData).subscribe(
+          (response: any) => {
+            alert(response.data.id)
+            if (response && response.data.id) {
+              console.log('Nouvelle demande créée avec succès :', response);
+              sessionStorage.setItem('controleId', response.data.id.toString()); // Stocker l'ID
+              this.router.navigate(['/demande-info-demandeur']);
+            } else {
+              console.error('Problème avec l\'ID de la demande dans la réponse :', response);
+            }
+          },
+          (error) => {
+            console.error('Erreur lors de la création de la demande :', error);
+          }
+        );
+      }
+    } else {
+      console.error('Formulaire invalide :', this.eligibiliteForm.errors);
+    }
+  }
+
+  goBack() {
+    this.router.navigate(['/demande-info-demandeur']);
+  }
+
 }

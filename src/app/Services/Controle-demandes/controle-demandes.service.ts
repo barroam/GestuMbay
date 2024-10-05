@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ControleDemande } from '../../Models/controle-demande';
 import { catchError, map, Observable, tap } from 'rxjs';
 import { apiUrl } from '../api-url';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,17 +32,24 @@ export class ControleDemandesService {
       );
   }
 
-  // Récupérer une demande de contrôle par ID
   getControleDemandeById(id: number): Observable<ControleDemande> {
-    return this.http.get<{ data: ControleDemande }>(`${apiUrl}/controle-demandes/${id}`, { headers: this.getHeaders() })
+    return this.http.get<ControleDemande>(`${apiUrl}/controle-demandes/${id}`, { headers: this.getHeaders() })
       .pipe(
-        map(response => response.data),
+        tap(response => console.log('Réponse de l\'API:', response)),  // Log complet de la réponse
+        map(response => {
+          if (response) {
+            return response;  // Retourner directement la réponse si c'est un objet
+          } else {
+            throw new Error('Données manquantes dans la réponse de l\'API');
+          }
+        }),
         catchError(error => {
           console.error(`Erreur lors de la récupération de la demande de contrôle ${id}:`, error);
-          throw error;
+          return throwError(error);  // Retourne l'erreur
         })
       );
   }
+  
 
   // Créer une nouvelle demande de contrôle
   createControleDemande(controleDemande: ControleDemande): Observable<ControleDemande> {

@@ -1,14 +1,15 @@
 <div class="container mt-4">
     <h2 class="mb-4">Contrôle d'éligibilité</h2>
+  
     <ul class="nav nav-pills nav-justified mb-4 gap-2">
         <li class="nav-item">
           <button class="nav-link active" style="background-color: #1f8226; color: white;">Informations</button>
         </li>
         <li class="nav-item">
             <button class="nav-link active" style="background-color: #1f8226; color: white;">Éligibilité</button>
-          </li>
+        </li>
         <li class="nav-item">
-          <button class="nav-link border " style="color: #1f8226;">Ressources</button>
+          <button class="nav-link border" style="color: #1f8226;">Ressources</button>
         </li>
       </ul>
     <form [formGroup]="eligibiliteForm" (ngSubmit)="onSubmit()">
@@ -40,9 +41,8 @@
       </div>
   
       <div class="d-flex justify-content-between">
-        <button type="button" class="btn btn-secondary">Précédent</button>
+        <button type="button" class="btn btn-secondary" (click)="goBack()">Précédent</button>
         <button type="submit" class="btn btn-success" [disabled]="eligibiliteForm.invalid">Suivant</button>
       </div>
     </form>
-  </div>
-  
+</div>

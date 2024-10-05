@@ -30,18 +30,17 @@ export class InfoDemandesService {
         })
       );
   }
-
-  // Récupérer une demande par ID
+  
   getInfoDemandeById(id: number): Observable<InfoDemande> {
-    return this.http.get<{ data: InfoDemande }>(`${apiUrl}/info-demandes/${id}`, { headers: this.getHeaders() })
-      .pipe(
-        map(response => response.data),
-        catchError(error => {
-          console.error(`Erreur lors de la récupération de la demande ${id}:`, error);
-          throw error;
-        })
-      );
-  }
+    return this.http.get<InfoDemande>(`${apiUrl}/info-demandes/${id}`, { headers: this.getHeaders() })
+        .pipe(
+            catchError(error => {
+                console.error(`Erreur lors de la récupération de la demande ${id}:`, error);
+                throw error;
+            })
+        );
+}
+
 
   // Créer une nouvelle demande
   createInfoDemande(infoDemande: InfoDemande): Observable<InfoDemande> {

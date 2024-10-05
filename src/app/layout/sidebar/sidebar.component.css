@@ -77,7 +77,7 @@
 /* Page Active */
 .nav-link.active {
 
-  color: #2e8b57; /* Couleur de texte pour la page active */
+  color: #084b25; /* Couleur de texte pour la page active */
   font-weight: bold; /* Texte en gras pour mieux indiquer l'état actif */
 }
 
