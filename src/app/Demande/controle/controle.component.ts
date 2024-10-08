@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ControleDemande } from '../../Models/controle-demande';
 import { ControleDemandesService } from '../../Services/Controle-demandes/controle-demandes.service';
 
 @Component({
   selector: 'app-controle',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule,CommonModule,RouterLink,RouterLinkActive],
   templateUrl: './controle.component.html',
   styleUrl: './controle.component.css'
 })
@@ -83,7 +83,7 @@ export class ControleComponent implements OnInit {
         this.controleService.updateControleDemande(this.controleId, eligibiliteData).subscribe(
           (response: ControleDemande) => {
             console.log('Demande mise à jour avec succès :', response);
-            this.router.navigate(['/demande-info-demandeur']);
+            this.router.navigate(['/demande-ressource']);
           },
           (error) => {
             console.error('Erreur lors de la mise à jour :', error);
@@ -93,11 +93,10 @@ export class ControleComponent implements OnInit {
         // Sinon, créer une nouvelle demande
         this.controleService.createControleDemande(eligibiliteData).subscribe(
           (response: any) => {
-            alert(response.data.id)
             if (response && response.data.id) {
               console.log('Nouvelle demande créée avec succès :', response);
               sessionStorage.setItem('controleId', response.data.id.toString()); // Stocker l'ID
-              this.router.navigate(['/demande-info-demandeur']);
+              this.router.navigate(['/demande-ressource']);
             } else {
               console.error('Problème avec l\'ID de la demande dans la réponse :', response);
             }

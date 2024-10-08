@@ -1,9 +1,10 @@
-/* src/app/header/header.component.css */
-.navbar {
-    margin-bottom: 20px;
-  }
-  
-  .form-control {
-    width: 200px; /* Ajuste la largeur selon tes préférences */
-  }
-  
+.navbar-nav {
+  flex-grow: 1;
+  justify-content: center;
+}
+.navbar-nav .nav-link {
+  padding: 0 1rem;
+}
+.nav{
+  border-bottom: 0.1rem solid #1F8226;
+}

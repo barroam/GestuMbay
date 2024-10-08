@@ -20,7 +20,7 @@ export class SemencesService {
   }
 
   getSemences(): Observable<any[]> {
-    return this.http.get<any[]>(`${apiUrl}/semences`, { headers: this.getHeaders() })
+    return this.http.get<Semences[]>(`${apiUrl}/semences`, { headers: this.getHeaders() })
       .pipe(
         tap(response => console.log('Réponse de l\'API:', response)), // Affiche la réponse de l'API
         catchError(error => {

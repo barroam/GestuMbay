@@ -9,20 +9,24 @@ import { AdminRessourceListComponent } from './Components/Admin/Ressources/admin
 import { DashbordAdminComponent } from './layout/dashbord-admin/dashbord-admin.component';
 import { InfoDemandeurComponent } from './Demande/info-demandeur/info-demandeur.component';
 import { ControleComponent } from './Demande/controle/controle.component';
-import { DemandeRessourceComponent } from './Demande/Ressource/demande-ressource/demande-ressource.component';
 import { AdminRessourceSemencesComponent } from './Components/Admin/Ressources/admin-ressource-semences/admin-ressource-semences.component';
 import path from 'path';
 import { AdminRessourceEquipementComponent } from './Components/Admin/Ressources/admin-ressource-equipement/admin-ressource-equipement.component';
 import { AdminRessourceEngraisComponent } from './Components/Admin/Ressources/admin-ressource-engrais/admin-ressource-engrais.component';
 
+import { DemandeRessourcesComponent } from './Demande/Ressource/demande-ressources/demande-ressources.component';
+import { FinirDemandeComponent } from './Demande/finir-demande/finir-demande.component';
+
+
 export const routes: Routes = [
 
     //Les ROUTES PRINCIPALES
-{path: 'accueil',component:AccueilComponent},
+{path: '',component:AccueilComponent},
 {path:'auth',component:AuthPrincipalComponent},
 {path:'demande-info-demandeur',component:InfoDemandeurComponent},
 {path:'demande-controle-eligibilite',component:ControleComponent},
-{path:'demande-ressource',component:DemandeRessourceComponent},
+{path:'demande-ressource',component:DemandeRessourcesComponent},
+{path:'demande-titre',component:FinirDemandeComponent},
 
 
 //LES ROUTES ADMIN

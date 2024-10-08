@@ -1,0 +1,79 @@
+.container {
+    padding: 20px;
+}
+
+h1 {
+    font-size: 24px;
+  }
+  
+  .add-btn {
+    background-color: #2e8b57;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+  }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    color: #2e8b57;
+    font-weight: 900;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+  td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+
+table img {
+    border-radius: 5px;
+    max-width: 100px; 
+}
+
+.edit-btn, .delete-btn {
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .form-label {
+    font-weight: bold;
+  }
+  
+  .preview {
+    margin: 10px 0;
+  }
+  .preview img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+
+  

@@ -3,13 +3,20 @@
 
   <ul class="nav nav-pills nav-justified mb-4 gap-2">
     <li class="nav-item">
-      <button class="nav-link active" style="background-color: #1f8226; color: white;">Informations</button>
+      <!-- Utilisez [routerLinkActive]="['active']" pour ajouter la classe active quand la route est sélectionnée -->
+      <a class="nav-link" [routerLink]="['/demande-info-demandeur']" [routerLinkActive]="['active']" style="background-color: #1f8226; color: white;">
+        Informations
+      </a>
     </li>
     <li class="nav-item">
-      <button class="nav-link border " style="color: #1f8226;">Éligibilité</button>
+      <a class="nav-link border" [routerLink]="['/demande-controle-eligibilite']" [routerLinkActive]="['active']" style="color: #1f8226; ">
+        Éligibilité
+      </a>
     </li>
     <li class="nav-item">
-      <button class="nav-link border " style="color: #1f8226;">Ressources</button>
+      <a class="nav-link border" [routerLink]="['/demande-ressource']" [routerLinkActive]="['active']" style="color: #1f8226;">
+        Ressources
+      </a>
     </li>
   </ul>
 

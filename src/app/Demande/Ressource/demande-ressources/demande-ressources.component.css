@@ -1,0 +1,17 @@
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.767);
+}
+
+.img-thumbnail {
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.img-thumbnail:hover, 
+.img-thumbnail.selected {
+  border-color: #28a745;
+}
+
+.text-muted {
+  font-style: italic;
+}

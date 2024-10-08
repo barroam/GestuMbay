@@ -1,0 +1,155 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Les ressources</h2>
+
+  <ul class="nav nav-pills nav-justified mb-4 gap-2">
+    <li class="nav-item">
+      <!-- Utilisez [routerLinkActive]="['active']" pour ajouter la classe active quand la route est sélectionnée -->
+      <a class="nav-link" [routerLink]="['/demande-info-demandeur']" style="background-color: #1f8226; color: white;">
+        Informations
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link border" [routerLink]="['/demande-controle-eligibilite']"  style="background-color: #1f8226; color: white;">
+        Éligibilité
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link border" [routerLink]="['/demande-ressource']"  style="background-color: #1f8226; color: white;">
+        Ressources
+      </a>
+    </li>
+  </ul>
+
+  <!-- Semences -->
+  <div class="card mb-4">
+    
+    <div class="card-body" style="background-color: #f4e3c1a2;">
+      <h3 class="" style="color: #28a745;" >Semences</h3>
+      <div *ngIf="semences.length === 0" class="text-muted">Aucune semence ajoutée</div>
+      <div *ngFor="let semence of semences; let i = index" class="d-flex justify-content-between align-items-center mb-2">
+        <span>
+          <img [src]="semence.image" alt="Semence" class="me-2 shadow rounded" style="width: 70px; height: 70px; object-fit: cover;">
+          {{ semence.nom }} - {{ semence.variete }} - {{ semence.quantite }} kg
+        </span>
+        <button (click)="supprimerRessource('semences', i)" class="btn btn-danger btn-sm" >Supprimer</button>
+      </div>
+      <button (click)="ouvrirModal('semences')" class="btn btn-success  mt-2" style="float: right;" >
+        + Ajouter une semence
+      </button>
+    </div>
+  </div>
+
+  <!-- Engrais -->
+  <div class="card mb-4">
+   
+    <div class="card-body" style="background-color:#f4e3c1a2;">
+      <h3 class="" style="color: #28a745;" >Engrais</h3>
+      <div *ngIf="engrais.length === 0" class="text-muted">Aucun engrais ajouté</div>
+      <div *ngFor="let eng of engrais; let i = index" class="d-flex justify-content-between align-items-center mb-2">
+        <span>
+          <img [src]="eng.image" alt="Engrais" class="me-2 shadow rounded" style="width: 70px; height: 70px; object-fit: cover;">
+          {{ eng.nom }} - {{ eng.variete }} - {{ eng.quantite }} kg
+        </span>
+        <button (click)="supprimerRessource('engrais', i)" class="btn btn-danger btn-sm">Supprimer</button>
+      </div>
+      <button (click)="ouvrirModal('engrais')" class="btn btn-success mt-2" style="float: right;">
+        + Ajouter un engrais
+      </button>
+    </div>
+  </div>
+
+  <!-- Équipements -->
+  <div class="card mb-4">
+  
+    <div class="card-body" style="background-color:#f4e3c1a2;">
+       <h3 class="" style="color: #28a745;" >Équipements</h3>
+      <div *ngIf="equipements.length === 0" class="text-muted">Aucun équipement ajouté</div>
+      <div *ngFor="let equip of equipements; let i = index" class="d-flex justify-content-between align-items-center mb-2">
+        <span>
+          <img [src]="equip.image" alt="Équipement" class="me-2 shadow rounded" style="width: 70px; height: 70px; object-fit: cover;">
+          {{ equip.nom }} -  <strong> Description : </strong> {{ equip.description }}
+        </span>
+        <button (click)="supprimerRessource('equipements', i)" class="btn btn-danger btn-sm">Supprimer</button>
+      </div>
+      <button (click)="ouvrirModal('equipements')" class="btn btn-success mt-2" style="float: right;">
+        + Ajouter un équipement
+      </button>
+    </div>
+  </div>
+
+  <!-- Bouton d'envoi de la demande -->
+  <div class="d-flex justify-content-between mt-4 mb-4">
+    <button class="btn btn-secondary " (click)="retourner()">Précédent</button>
+    <button (click)="ouvrirModalConfirmation()" class="btn btn-success " [disabled]="!peutEnvoyerDemande()">
+      Envoyer la demande
+    </button>
+  </div>
+
+  <!-- Modal de sélection de ressource -->
+  <div class="modal fade" id="resourceModal" tabindex="-1" aria-labelledby="resourceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ currentResource | titlecase }} disponibles</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="resourceSelect" class="form-label">Sélectionnez une ressource :</label>
+            <select [(ngModel)]="selectedResource" class="form-select" id="resourceSelect">
+              <option [ngValue]="null">Choisissez une option</option>
+              <option *ngFor="let resource of resources[currentResource]" [ngValue]="resource">
+                {{ resource.nom }}
+              </option>
+            </select>
+          </div>
+
+          <div *ngIf="selectedResource" class="mb-3">
+            <img [src]="selectedResource.image" [alt]="selectedResource.nom" class="img-fluid mb-2 rounded " style="width: 8rem; height: 8rem; object-fit: cover;">
+            <p><strong>Nom :</strong> {{ selectedResource.nom }}</p> 
+            <p><strong>Description :</strong> {{ selectedResource.description }}</p>
+          </div>
+
+          <div *ngIf="currentResource !== 'equipements'" class="mb-3">
+            <label for="variete" class="form-label">Variété :</label>
+            <input type="text" [(ngModel)]="variete" class="form-control" id="variete" name="variete"
+            minlength="2" 
+            required 
+            pattern="[A-Za-z]{1,2}" 
+            title="Entrez 1 ou 2 lettres" >
+          </div>
+
+          <div *ngIf="currentResource !== 'equipements'" class="mb-3">
+            <label for="quantite" class="form-label">Quantité :</label>
+            <input type="number" [(ngModel)]="quantite" class="form-control" id="quantite" name="quantite" 
+            min="1" 
+            required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-success" (click)="ajouterRessource()" [disabled]="!selectedResource">Ajouter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de confirmation d'envoi -->
+  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmationModalLabel">Confirmer l'envoi de la demande</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Êtes-vous sûr de vouloir envoyer cette demande de ressources ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-success" (click)="envoyerDemande()">Confirmer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
