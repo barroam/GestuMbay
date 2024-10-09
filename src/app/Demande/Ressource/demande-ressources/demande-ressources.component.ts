@@ -144,6 +144,7 @@ semences: Semences[] = [];
         this.engrais = [];
         this.equipements = [];
         const modal = bootstrap.Modal.getInstance(document.getElementById('confirmationModal'));
+        this.router.navigate(['/demande-titre']); 
         if (modal) {
           modal.hide();
         }
@@ -163,4 +164,5 @@ semences: Semences[] = [];
   retourner() {
     this.router.navigate(['/demande-controle-eligibilite']); // Remplacer par la route réelle
   }
+  
 }

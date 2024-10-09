@@ -1,1 +1,107 @@
-<p>admin-contrat-add-or-update works!</p>
+<div class="container mt-4">
+<h1 class="mb-3 text-success">Ajouter un contrat</h1>
+<form [formGroup]="contractForm" (ngSubmit)="onSubmit()" class="container mt-4">
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label for="fournisseur" class="form-label">Fournisseur:</label>
+      <select id="fournisseur" formControlName="ressource_id" class="form-select" [ngClass]="{'is-invalid': isFieldInvalid('ressource_id')}">
+        <option value="">Sélectionner un fournisseur</option>
+        <option *ngFor="let f of fournisseurs" [value]="f.id">{{ f.name }}</option>
+      </select>
+      <div *ngIf="isFieldInvalid('ressource_id')" class="invalid-feedback">
+        Le fournisseur est requis
+      </div>
+    </div>
+    <div class="col-md-4">
+      <label for="agriculteur" class="form-label">Agriculteur(s):</label>
+      <select id="agriculteur" formControlName="user_id" class="form-select" multiple [ngClass]="{'is-invalid': isFieldInvalid('user_id')}">
+        <option *ngFor="let a of agriculteurs" [value]="a.id">{{ a.name }}</option>
+      </select>
+      <div *ngIf="isFieldInvalid('user_id')" class="invalid-feedback">
+        Au moins un agriculteur est requis
+      </div>
+    </div>
+    <div class="col-md-4">
+      <label for="projet" class="form-label">Projet:</label>
+      <select id="projet" formControlName="projet_id" class="form-select" [ngClass]="{'is-invalid': isFieldInvalid('projet_id')}">
+        <option value="">Sélectionner un projet</option>
+        <option *ngFor="let p of projets" [value]="p.id">{{ p.type_activite }}</option>
+      </select>
+      <div *ngIf="isFieldInvalid('projet_id')" class="invalid-feedback">
+        Le projet est requis
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+  <div class="col-md-5 inline">
+    <label for="etat" class="form-label">Etat:</label>
+    <select id="etat" formControlName="etat" class="form-select" [ngClass]="{'is-invalid': isFieldInvalid('etat')}">
+      <option value="en_cours">En cours</option>
+      <option value="terminer">Terminé</option>
+      <option value="annuler">Annulé</option>
+    </select>
+    <div *ngIf="isFieldInvalid('etat')" class="invalid-feedback">
+      L'état est requis
+    </div>
+  </div>
+  <div class="col-md-5">
+    <label for="date" class="form-label">Date:</label>
+    <input type="date" id="date" formControlName="date" class="form-control" [ngClass]="{'is-invalid': isFieldInvalid('date')}">
+    <div *ngIf="isFieldInvalid('date')" class="invalid-feedback">
+      La date est requise
+    </div>
+  </div>
+</div>
+  <div class="mb-3">
+    <label for="objectif" class="form-label">Objectif:</label>
+    <textarea id="objectif" formControlName="objectif" class="form-control" [ngClass]="{'is-invalid': isFieldInvalid('objectif')}" rows="3"></textarea>
+    <div *ngIf="isFieldInvalid('objectif')" class="invalid-feedback">
+      L'objectif est requis
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="mode_paiement" class="form-label">Mode de Paiement:</label>
+    <textarea id="mode_paiement" formControlName="mode_paiement" class="form-control" [ngClass]="{'is-invalid': isFieldInvalid('mode_paiement')}" rows="3"></textarea>
+    <div *ngIf="isFieldInvalid('mode_paiement')" class="invalid-feedback">
+      Le mode de paiement est requis
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="nature_paiement" class="form-label">Nature du Paiement:</label>
+    <textarea  id="nature_paiement" formControlName="nature_paiement" class="form-control" [ngClass]="{'is-invalid': isFieldInvalid('nature_paiement')}" ></textarea>
+    <div *ngIf="isFieldInvalid('nature_paiement')" class="invalid-feedback">
+      La nature du paiement est requise
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="quantite" class="form-label">Quantité</label>
+ <input  type="number" id="quantite" formControlName="quantite" class="form-control" [ngClass]="{'is-invalid': isFieldInvalid('quantite')}">
+    <div *ngIf="isFieldInvalid('quantite')" class="invalid-feedback">
+      La quantité ou une description est requise
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="presvu" class="form-label">Prévu:</label>
+    <textarea id="presvu" formControlName="presvu" class="form-control" [ngClass]="{'is-invalid': isFieldInvalid('presvu')}" rows="3"></textarea>
+    <div *ngIf="isFieldInvalid('presvu')" class="invalid-feedback">
+      Le prévu est requis
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="force_majeure" class="form-label">Force Majeure:</label>
+    <textarea id="force_majeure" formControlName="force_majeure" class="form-control" rows="3" [ngClass]="{'is-invalid': isFieldInvalid('force_majeure')}"></textarea>
+    <div *ngIf="isFieldInvalid('force_majeure')" class="invalid-feedback">
+      force majeure est requis
+    </div>
+  </div>
+
+
+
+  <button type="submit" class="btn btn-success">{{ contractId ? 'Mettre à jour' : 'Ajouter' }} le contrat</button>
+</form>
+</div>

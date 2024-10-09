@@ -8,5 +8,4 @@ import { Component } from '@angular/core';
   styleUrl: './admin-projet-list.component.css'
 })
 export class AdminProjetListComponent {
-
 }

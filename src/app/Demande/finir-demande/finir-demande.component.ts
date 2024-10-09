@@ -1,13 +1,95 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from "../../layout/header/header.component";
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DemandesService } from '../../Services/Demandes/demandes.service';
+import { Demandes } from '../../Models/demandes';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-finir-demande',
   standalone: true,
-  imports: [HeaderComponent],
+  imports: [CommonModule,HeaderComponent,ReactiveFormsModule],
   templateUrl: './finir-demande.component.html',
   styleUrl: './finir-demande.component.css'
 })
-export class FinirDemandeComponent {
+export class FinirDemandeComponent implements OnInit {
+  demandeForm: FormGroup;
+  isProcessing: boolean = false;
+  noIds: boolean = false;
 
+  constructor(private fb: FormBuilder, private demandesService: DemandesService) {
+    // Initialisation du formulaire
+    this.demandeForm = this.fb.group({
+      titre: ['', Validators.required] // Champ requis pour le titre
+    });
+  }
+
+  ngOnInit() {
+    // Vérifiez si les IDs nécessaires sont présents dans le sessionStorage
+
+    const controleDemandeId = sessionStorage.getItem('controleId');
+    const infoDemandeId = sessionStorage.getItem('demandeId');
+    const ressourceDemandeId = sessionStorage.getItem('ressourceId');
+
+    // Si l'une des valeurs est manquante, on affiche un message d'erreur
+    if (!controleDemandeId || !infoDemandeId || !ressourceDemandeId) {
+      this.noIds = true;
+    }
+  }
+
+  onSubmit() {
+
+    // Validation du formulaire avant la soumission
+    if (this.demandeForm.valid && !this.noIds) {
+      // Récupération des identifiants dans le sessionStorage
+      const controleDemandeId = sessionStorage.getItem('controleId');
+      const infoDemandeId = sessionStorage.getItem('demandeId');
+      const ressourceDemandeId = sessionStorage.getItem('ressourceId');
+
+      // Récupération des informations utilisateur depuis le localStorage
+      const user = localStorage.getItem('user');
+      if (user) {
+        alert('ca marche 3')
+        const userData = JSON.parse(user);
+        const userId = userData.id;
+
+        // Vérifiez que toutes les valeurs sont présentes et correctes
+        if (userId) {
+       
+          // Créer l'objet de demande avec le statut par défaut 'en_attente'
+          const demande: Demandes = {
+            controle_demande_id: Number(controleDemandeId),
+            info_demande_id: Number(infoDemandeId),
+            ressource_id: Number(ressourceDemandeId),
+            user_id: Number(userId),
+            titre: this.demandeForm.get('titre')?.value,
+            statut: 'en_attente', // Valeur par défaut pour le statut
+          };
+    
+          // Soumission de la demande via le service
+          this.demandesService.createDemande(demande).subscribe(
+            (response: Demandes) => {
+              this.isProcessing = true; // Passage à l'état de traitement
+              console.log('Réponse de l\'API:', response); // Afficher la réponse de l'API
+alert(response)
+              // Simuler une semaine (604 800 000 ms)
+              setTimeout(() => {
+                this.isProcessing = false; // Fin de l'état de traitement après une semaine
+                console.log('Traitement terminé après une semaine.');
+              }, 604800000); // 1 semaine en millisecondes
+            },
+            (error) => {
+              console.error('Erreur lors de la création de la demande:', error);
+              // Gérer l'erreur ici
+            }
+          );
+        } else {
+          this.noIds = true;
+        }
+      } else {
+        console.error("Utilisateur non trouvé dans le localStorage");
+        this.noIds = true;
+      }
+    }
+  }
 }

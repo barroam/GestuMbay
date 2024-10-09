@@ -6,3 +6,22 @@
     background-color: #009966;
     border-color: #009966;
 }
+
+.attente{
+    margin-top: 7rem;
+}
+.container {
+    max-width: 600px;
+    margin-top: 50px;
+  }
+  .form-control {
+    background-color: #f4e3c1a2;
+  }
+  .btn-custom {
+    background-color: #00b67a;
+    border-color: #00b67a;
+  }
+  .btn-custom:hover {
+    background-color: #009966;
+    border-color: #009966;
+  }

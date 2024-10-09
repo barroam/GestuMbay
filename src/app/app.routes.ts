@@ -16,6 +16,9 @@ import { AdminRessourceEngraisComponent } from './Components/Admin/Ressources/ad
 
 import { DemandeRessourcesComponent } from './Demande/Ressource/demande-ressources/demande-ressources.component';
 import { FinirDemandeComponent } from './Demande/finir-demande/finir-demande.component';
+import { AdminContratShowComponent } from './Components/Admin/Contrats/admin-contrat-show/admin-contrat-show.component';
+import { AdminContratAddOrUpdateComponent } from './Components/Admin/Contrats/admin-contrat-add-or-update/admin-contrat-add-or-update.component';
+import { AdminContratComponent } from './Components/Admin/Contrats/admin-contrat/admin-contrat.component';
 
 
 export const routes: Routes = [
@@ -30,23 +33,43 @@ export const routes: Routes = [
 
 
 //LES ROUTES ADMIN
-{path:'',component:DashbordAdminComponent, children:[
-    {path:'',redirectTo:'Dashbord-Admin-Accueil',pathMatch:'full'},
-    {path:'Dashbord-Admin-Accueil',component:DashbordComponent},
-    {path:'Dashbord-Admin-Utilisateurs',component:AdminUserListComponent},
-    {path:'Dashbord-Admin-Projets',component:AdminProjetListComponent},
-    {path:'Dashbord-Admin-Contrats',component:AdminContratListComponent},
-    {path:'Dashbord-Admin-Ressources',component:AdminRessourceListComponent,
-        children:[
-            {path:'',redirectTo:'Semences',pathMatch:'full'},
-    {path:'Semences',component:AdminRessourceSemencesComponent},
-    {path:'Equipement',component:AdminRessourceEquipementComponent},
-    {path:'Engrais',component:AdminRessourceEngraisComponent},
-    ]}]},  
-     { path: '', redirectTo: '/Dashbord-Admin-Accueil', pathMatch: 'full' }, 
+{
+    path: '',
+    component: DashbordAdminComponent,
+    children: [
+        {path: '', redirectTo: 'Dashbord-Admin-Accueil', pathMatch: 'full'},
+        {path: 'Dashbord-Admin-Accueil', component: DashbordComponent},
+        {path: 'Dashbord-Admin-Utilisateurs', component: AdminUserListComponent},
+        {path: 'Dashbord-Admin-Projets', component: AdminProjetListComponent},
+        {
+            path: 'Dashbord-Admin-Contrats',
+            component: AdminContratComponent,
+            children: [
+                {path: '', redirectTo: 'liste', pathMatch: 'full'},
+                {path: 'liste', component: AdminContratListComponent},
+                {path: 'show/:id', component: AdminContratShowComponent}, // Enlever l'espace
+                {path: 'add-or-update', component: AdminContratAddOrUpdateComponent}, // Enlever l'espace
+                {path: 'add-or-update/:id', component: AdminContratAddOrUpdateComponent}, // Enlever l'espace
+            ]
+        },
+        {
+            path: 'Dashbord-Admin-Ressources',
+            component: AdminRessourceListComponent,
+            children: [
+                {path: '', redirectTo: 'Semences', pathMatch: 'full'},
+                {path: 'Semences', component: AdminRessourceSemencesComponent},
+                {path: 'Equipement', component: AdminRessourceEquipementComponent},
+                {path: 'Engrais', component: AdminRessourceEngraisComponent},
+            ]
+        }
+    ]
+},
 
+// Redirection par défaut
+{path: '**', redirectTo: 'Dashbord-Admin-Accueil', pathMatch: 'full'},
+];
 
 
  
 
-];
+

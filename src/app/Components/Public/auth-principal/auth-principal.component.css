@@ -2,7 +2,7 @@
 
 .auth-container {
   
-    background: #ffffff71;
+    background: #ffffffb2;
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -17,3 +17,34 @@
     margin-top: 7.5rem;
 
   }
+  
+  .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../../../assets/images/growing-organic-ecological-plants-fields-background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    z-index: -1; /* Met le fond derrière tout le contenu */
+}
+
+.container {
+    position: relative;
+    z-index: 1; /* Met le contenu au-dessus de l'image */
+    padding: 20px; /* Vous pouvez ajouter du padding pour le contenu */
+    /* Ajouter d'autres styles pour le contenu */
+}
+.link-retour{
+  position: absolute;
+  z-index: 1; /* Met le contenu au-dessus de l'image */
+  background-color: seagreen;
+  margin: 1rem;
+  padding: 0.5rem;
+font-family: 'Roboto';
+font-weight: 700;
+}
+
