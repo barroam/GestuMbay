@@ -1,0 +1,44 @@
+<div class="historique-container">
+    <h1 class="text-success mb-4">Historique du Projet</h1>
+  
+    <div *ngIf="isLoading" class="loading-message">Chargement des données...</div>
+  
+    <div *ngIf="!isLoading && historiqueDetails.length">
+      <div class="historique-cards">
+        <div *ngFor="let item of historiqueDetails" class="historique-card">
+          <div class="card-header">
+            <div class="date">{{ item.date | date: 'dd/MM/yyyy' }}</div>
+            <span class="badge" [ngClass]="{
+              'bg-success': item.etat === 'terminer',
+              'bg-danger': item.etat === 'annuler',
+              'bg-warning': item.etat === 'en_cours'
+            }">{{ item.etat }}</span>
+          </div>
+  
+          <div class="card-body">
+            <h4 class="text-success">Type d'activité</h4>
+            <p>{{ item.type_activite }}</p>
+  
+            <h4 class="text-success">Attentes</h4>
+            <p>{{ item.attentes }}</p>
+  
+            <h4 class="text-success">Obstacles</h4>
+            <p>{{ item.obstacles }}</p>
+  
+            <h4 class="text-success">Solutions</h4>
+            <p>{{ item.solutions }}</p>
+  
+            <div *ngIf="item.date_fin">
+              <h4 class="text-success">Date de fin</h4>
+              <p>{{ item.date_fin | date: 'dd/MM/yyyy' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="!isLoading && !historiqueDetails.length" class="no-data-message">
+      Aucune donnée disponible.
+    </div>
+  </div>
+  

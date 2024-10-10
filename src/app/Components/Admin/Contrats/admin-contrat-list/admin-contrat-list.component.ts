@@ -33,6 +33,8 @@ export class AdminContratListComponent implements OnInit {
       this.contratsService.getContrats().subscribe(
         (data) => {
           this.contrats = data;
+          console.log(this.contrats);
+          
           this.errorMessage = '';
         },
         (error) => {

@@ -49,7 +49,7 @@ export class FinirDemandeComponent implements OnInit {
       // Récupération des informations utilisateur depuis le localStorage
       const user = localStorage.getItem('user');
       if (user) {
-        alert('ca marche 3')
+       
         const userData = JSON.parse(user);
         const userId = userData.id;
 

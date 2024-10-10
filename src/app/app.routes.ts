@@ -19,6 +19,14 @@ import { FinirDemandeComponent } from './Demande/finir-demande/finir-demande.com
 import { AdminContratShowComponent } from './Components/Admin/Contrats/admin-contrat-show/admin-contrat-show.component';
 import { AdminContratAddOrUpdateComponent } from './Components/Admin/Contrats/admin-contrat-add-or-update/admin-contrat-add-or-update.component';
 import { AdminContratComponent } from './Components/Admin/Contrats/admin-contrat/admin-contrat.component';
+import { AdminProjetComponent } from './Components/Admin/Projets/admin-projet/admin-projet.component';
+import { AdminProjetAddUpdateComponent } from './Components/Admin/Projets/admin-projet-add-update/admin-projet-add-update.component';
+import { AdminProjetShowComponent } from './Components/Admin/Projets/admin-projet-show/admin-projet-show.component';
+import { AdminProjetHistoriquesComponent } from './Components/Admin/Projets/admin-projet-historiques/admin-projet-historiques.component';
+import { AdminDemandesComponent } from './Components/Admin/Demandes/admin-demandes/admin-demandes.component';
+import { AdminDemandesAddUpdateComponent } from './Components/Admin/Demandes/admin-demandes-add-update/admin-demandes-add-update.component';
+import { AdminDemandesShowComponent } from './Components/Admin/Demandes/admin-demandes-show/admin-demandes-show.component';
+import { AdminDemandesListComponent } from './Components/Admin/Demandes/admin-demandes-list/admin-demandes-list.component';
 
 
 export const routes: Routes = [
@@ -40,7 +48,29 @@ export const routes: Routes = [
         {path: '', redirectTo: 'Dashbord-Admin-Accueil', pathMatch: 'full'},
         {path: 'Dashbord-Admin-Accueil', component: DashbordComponent},
         {path: 'Dashbord-Admin-Utilisateurs', component: AdminUserListComponent},
-        {path: 'Dashbord-Admin-Projets', component: AdminProjetListComponent},
+        {path: 'Dashbord-Admin-Demandes', component: AdminDemandesComponent,
+
+            children: [
+                {path: '', redirectTo: 'liste', pathMatch: 'full'},
+                {path: 'liste', component: AdminDemandesListComponent},
+                {path: 'show/:id', component: AdminDemandesShowComponent}, 
+                {path: 'add-or-update', component: AdminDemandesAddUpdateComponent}, 
+                {path: 'add-or-update/:id', component: AdminDemandesAddUpdateComponent}, 
+            ]
+
+        },
+        {
+            path: 'Dashbord-Admin-Projets',
+            component: AdminProjetComponent,
+            children: [
+                {path: '', redirectTo: 'liste', pathMatch: 'full'},
+                {path: 'liste', component: AdminProjetListComponent},
+                {path: 'show/:id', component: AdminProjetShowComponent}, 
+                {path: 'add-or-update', component: AdminProjetAddUpdateComponent}, 
+                {path: 'add-or-update/:id', component: AdminProjetAddUpdateComponent}, 
+                { path: 'historique/:id', component: AdminProjetHistoriquesComponent }
+            ]
+        },
         {
             path: 'Dashbord-Admin-Contrats',
             component: AdminContratComponent,

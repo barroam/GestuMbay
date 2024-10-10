@@ -1,0 +1,120 @@
+<div class="container my-5">
+    <div id="demande-content" *ngIf="demande">
+      <div class="card border-success shadow">
+        <div class="card-header bg-success text-white text-center">
+          <h2 class="mb-0">Demande : {{ demande.titre }}</h2>
+        </div>
+        <div class="card-body" >
+          
+          <!-- État de la demande -->
+          <div class="d-flex  align-items-center mb-4">
+            <h3 class="text-success mb-0">État de la demande : <span class="badge bg-success" >{{ demande.statut }} </span> </h3>
+       
+          </div>
+  
+          <hr class="my-4">
+  
+          <!-- Informations du demandeur, de l'utilisateur et contrôle d'éligibilité -->
+          <div class="row">
+            <div class="col-md-4">
+              <h3 class="text-success">Informations du Demandeur</h3>
+              <p><strong>Type de Demandeur :</strong> {{ infoDemande?.demandeur }}</p>
+              <p><strong>Nom :</strong> {{ infoDemande?.nom_demandeur }}</p>
+              <p><strong>Adresse :</strong> {{ infoDemande?.adresse }}</p>
+              <p><strong>CNI/NINEA :</strong> {{ infoDemande?.cin_ninea }}</p>
+              <p><strong>Contact :</strong> {{ infoDemande?.contact }}</p>
+            </div>
+  
+            <div class="col-md-4">
+              <h3 class="text-success">Informations de l'Utilisateur</h3>
+              <p><strong>Nom :</strong> {{ user.name }}</p>
+              <p><strong>Email :</strong> {{ user.email }}</p>
+              <p><strong>Date de Création :</strong> {{ user.created_at | date: 'short' }}</p>
+            </div>
+  
+            <div class="col-md-4">
+              <h3 class="text-success">Contrôle d'Éligibilité</h3>
+              <p><strong>Numéro de Parcelle :</strong> {{ controleDemande?.numero_parcelle }}</p>
+              <p><strong>Superficie :</strong> {{ controleDemande?.hectare }} m²</p>  
+              <p><strong>Type de Culture :</strong> {{ controleDemande?.culture }}</p>
+            </div>
+          </div>
+  
+          <hr class="my-4">
+  
+          <!-- Semences Table -->
+          <h3 class="text-success">Semences</h3>
+          <table class="table table-bordered table-striped">
+            <thead class="bg-success text-white">
+              <tr>
+                <th>Photo</th>
+                <th>Nom</th>
+                <th>Variété</th>
+                <th>Quantité (kg)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let semence of semences">
+                <td>
+                  <img [src]="semence.image" [alt]="semence.nom" class="img-fluid" style="max-width: 50px; max-height: 50px;">
+                </td>
+                <td>{{ semence.nom }}</td>
+                <td>{{ semence.variete }}</td>
+                <td>{{ semence.quantite }}</td>
+              </tr>
+            </tbody>
+          </table>
+  
+          <!-- Engrais Table -->
+          <h3 class="text-success">Engrais</h3>
+          <table class="table table-bordered table-striped">
+            <thead class="bg-success text-white">
+              <tr>
+                <th>Photo</th>
+                <th>Nom</th>
+                <th>Variété</th>
+                <th>Quantité (kg)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let engrai of engrais">
+                <td>
+                  <img [src]="engrai.image" [alt]="engrai.nom" class="img-fluid" style="max-width: 50px; max-height: 50px;">
+                </td>
+                <td>{{ engrai.nom }}</td>
+                <td>{{ engrai.variete }}</td>
+                <td>{{ engrai.quantite }}</td>
+              </tr>
+            </tbody>
+          </table>
+  
+          <!-- Équipements Table -->
+          <h3 class="text-success">Équipements</h3>
+          <table class="table table-bordered table-striped">
+            <thead class="bg-success text-white">
+              <tr>
+                <th>Photo</th>
+                <th>Nom</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let equipement of equipements">
+                <td>
+                  <img [src]="equipement.image" [alt]="equipement.nom" class="img-fluid" style="max-width: 50px; max-height: 50px;">
+                </td>
+                <td>{{ equipement.nom }}</td>
+                <td>{{ equipement.description }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer text-center">
+          <a class="btn btn-outline-success" (click)="downloadPDF()">
+            <i class="fas fa-file-pdf me-2"></i>
+            Télécharger en PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>

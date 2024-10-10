@@ -9,7 +9,9 @@
   font-family: 'Merriweather';
   font-weight: bold;
 }
-  
+  i{
+    color: #2e8b57;
+  }
   .nav-link:hover {
     margin: 0.6rem;
     border: 0.1rem solid #2e8b57;
@@ -77,8 +79,8 @@
 /* Page Active */
 .nav-link.active {
 
-  color: #084b25; /* Couleur de texte pour la page active */
-  font-weight: bold; /* Texte en gras pour mieux indiquer l'état actif */
+  color: #0a833e; /* Couleur de texte pour la page active */
+  font-weight: 500; /* Texte en gras pour mieux indiquer l'état actif */
 }
 
 @media (max-width: 980px) {

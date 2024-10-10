@@ -1,0 +1,52 @@
+.historique-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .loading-message,
+  .no-data-message {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .historique-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 2 cartes par ligne avec un minimum de 300px */
+    gap: 20px; /* Espacement entre les cartes */
+  }
+  
+  .historique-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s; /* Effet de survol */
+  }
+  
+  .historique-card:hover {
+    transform: scale(1.02); /* Effet de zoom sur la carte au survol */
+  }
+  
+  .card-header {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Centrer le badge verticalement */
+  }
+  
+  .date {
+    font-size: 1.2em; /* Mettre la date en évidence */
+    font-weight: bold;
+    color: #333; /* Couleur de texte pour la date */
+  }
+  
+  .badge {
+    padding: 5px 10px; /* Padding pour le badge */
+    border-radius: 5px; /* Coins arrondis pour le badge */
+  }
+  
+  .card-body {
+    padding: 15px; /* Espacement intérieur du corps de la carte */
+  }
+  

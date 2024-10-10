@@ -69,6 +69,20 @@ export class ProjetsService {
       );
   }
 
+// Récupère les détails d'un historique de projet par ID
+// Récupère tous les historiques d'un projet par son ID
+getHistoriques(projetId: number): Observable<any[]> {
+  return this.http.get<any[]>(`${apiUrl}/projets/${projetId}/historiques`, { headers: this.getHeaders() })
+    .pipe(
+      tap(response => console.log('Réponse de l\'API:', response)), // Log la réponse pour le débogage
+      catchError(error => {
+        console.error(`Erreur lors de la récupération des historiques pour le projet ${projetId}:`, error); // Log l'erreur
+        return throwError(error); // Relève l'erreur pour la gestion ultérieure
+      })
+    );
+}
+
+
   // Supprimer un projet
   deleteProjet(id: number): Observable<void> {
     return this.http.delete<void>(`${apiUrl}/projets/${id}`, { headers: this.getHeaders() })

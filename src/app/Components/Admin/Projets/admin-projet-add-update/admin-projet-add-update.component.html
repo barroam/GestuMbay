@@ -1,0 +1,33 @@
+<div class="container mt-4">
+    <h2>{{ isEditMode ? 'Modifier' : 'Ajouter' }} un Projet</h2>
+    <form [formGroup]="projetForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="type_activite" class="form-label">Type d'activité</label>
+        <input type="text" class="form-control" id="type_activite" formControlName="type_activite">
+      </div>
+      <div class="mb-3">
+        <label for="etat" class="form-label">État</label>
+        <select class="form-select" id="etat" formControlName="etat">
+          <option value="en_cours">En cours</option>
+          <option value="terminer">Terminé</option>
+          <option value="annuler">Annulé</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="date" class="form-label">Date</label>
+        <input type="date" class="form-control" id="date" formControlName="date">
+      </div>
+      <div class="mb-3">
+        <label for="attentes" class="form-label">Attentes</label>
+        <textarea class="form-control" id="attentes" formControlName="attentes"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="obstacles" class="form-label">Obstacles</label>
+        <textarea class="form-control" id="obstacles" formControlName="obstacles"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="solutions" class="form-label">Solutions</label>
+        <textarea class="form-control" id="solutions" formControlName="solutions"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Modifier' : 'Ajouter' }}</button>
+    </form>
