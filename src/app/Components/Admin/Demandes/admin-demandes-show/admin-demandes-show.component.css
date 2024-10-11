@@ -1,4 +1,7 @@
-.container{background-color: white;}
-thead{
-    background-color: green;
-}
+.card-body h3, .card-body h4 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .table-responsive {
+    overflow-x: auto;
+  }

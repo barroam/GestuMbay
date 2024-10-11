@@ -76,4 +76,19 @@ export class DemandesService {
         })
       );
   }
+
+
+  // Service method to update the status of a demande
+updateDemandeStatus(id: number, statut: string): Observable<any> {
+  const body = { statut };
+  return this.http.patch<any>(`${apiUrl}/demandes/${id}/status`, body, { headers: this.getHeaders() })
+    .pipe(
+      tap(response => console.log('Statut de la demande mis à jour:', response)),
+      catchError(error => {
+        console.error('Erreur lors de la mise à jour du statut de la demande:', error);
+        return of({}); // Retourne un objet vide en cas d'erreur
+      })
+    );
+}
+
 }

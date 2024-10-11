@@ -26,7 +26,7 @@ export class AdminDemandesShowComponent implements OnInit {
   engrais: any[] = [];
   equipements: Equipements[] = [];
   user: any = {}; // Ajout de l'utilisateur
-
+  today: Date = new Date();
   constructor(
     private route: ActivatedRoute,
     private demandesService: DemandesService,
@@ -162,5 +162,32 @@ export class AdminDemandesShowComponent implements OnInit {
       console.error('Erreur lors de l\'attente des images:', error);
     });
   }
+
+  confirmDemandeStatusUpdate(id: number | undefined, newStatus: 'en_attente' | 'approuvee' | 'refusee'): void {
+    if (id === undefined) {
+      console.error('ID de la demande non défini');
+      return;
+    }
+  
+    if (confirm(`Êtes-vous sûr de vouloir ${newStatus === 'approuvee' ? 'approuver' : 'refuser'} cette demande ?`)) {
+      this.demandesService.updateDemandeStatus(id, newStatus).subscribe(
+        response => {
+          console.log('Statut mis à jour avec succès:', response);
+          alert(`La demande a été ${newStatus === 'approuvee' ? 'approuvée' : 'refusée'} avec succès.`);
+          
+          // Vérifiez que this.demande n'est pas null avant de l'utiliser
+          if (this.demande) {
+            this.demande.statut = newStatus; // Mise à jour du statut local
+          }
+        },
+        error => {
+          console.error('Erreur lors de la mise à jour du statut:', error);
+          alert('Une erreur est survenue lors de la mise à jour du statut.');
+        }
+      );
+    }
+  }
+  
+  
 }
 
