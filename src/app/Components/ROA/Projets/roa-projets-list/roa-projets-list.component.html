@@ -1,0 +1,38 @@
+<div class="container mt-4">
+    <h2>Liste des Projets</h2>
+    <button class="btn btn-success mb-3" routerLink="/Dashbord-ROA-Projets/add-or-update">Ajouter un projet</button>
+    
+    <table class="table table-striped  border rounded-1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Type d'activité</th>
+          <th>État</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let projet of projets">
+          <td>{{ projet.id }}</td>
+          <td>{{ projet.type_activite }}</td>
+          <td>
+            <span class="badge" [ngClass]="{
+              'bg-success': projet.etat === 'terminer',
+              'bg-danger': projet.etat === 'annuler',
+              'bg-secondary': projet.etat === 'en_cours'
+            }">
+              {{ projet.etat }}
+            </span>
+          </td>
+          <td>{{ projet.date | date:'dd/MM/yyyy' }}</td>
+          <td>
+            <button class="btn btn-sm  me-2" [routerLink]="['/Dashbord-ROA-Projets/show', projet.id]">   <i class="fas fa-eye text-success fa-2x"></i></button>
+            <button class="btn btn-sm btn-warning me-2" [routerLink]="['/Dashbord-ROA-Projets/add-or-update', projet.id]">Modifier</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteProjet(projet.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

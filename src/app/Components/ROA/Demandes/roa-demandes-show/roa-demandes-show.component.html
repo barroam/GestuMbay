@@ -1,0 +1,144 @@
+<div class="container mt-4">
+    <div *ngIf="demande" >
+      <div class="card border-success shadow p-2"  id="demande-content">
+         <!-- Affichage du statut de la demande -->
+        <div class="card-header bg-success text-white text-center">
+          <h2 class="mb-0">Demande de Ressource agricole</h2>
+        </div>
+        <div class="card-body">
+            <div class="card-body">
+                <div *ngIf="demande.statut === 'approuvee'" class="text-center my-3 tampon-approuve">
+                    <img src="../../../../../assets/images/tampon1.jpg" alt="Approuvé" class="w-25 img-fluid" />
+                  </div>
+                  
+               <div *ngIf="demande.statut === 'refusee'" class="text-center my-3 tampon-refusee">
+                    <img src="../../../../../assets/images/tampon2.jpg" alt="refusé" class="w-25 img-fluid" />
+                  </div>
+                
+          <!-- En-tête de la lettre -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <p><strong>{{ user?.name}}</strong></p>
+              <p> {{ user?.email }}</p>
+              <p> {{ user?.created_at}}</p>
+              <p></p>     </div>
+            <div class="col-md-6 text-md-end">
+               <p><strong>Gestu Mbay</strong></p>
+
+               <p>Adresse: Dakar,Sénégal</p>
+              <p>{{ today | date:'longDate' }}</p>
+            </div>
+          </div>
+
+          <h5 class="mb-4 text-center ">À l'attention du Service de <strong> GESTU MBAY</strong>,</h5>
+
+          <p><strong>Objet :</strong> Demande de ressource agricole - Dossier n° {{ demande.id }}</p>
+
+          <p>Madame, Monsieur,</p>
+
+          <p>Je soussigné(e), {{ infoDemande?.nom_demandeur }}, ai l'honneur de solliciter une subvention agricole pour soutenir mon activité. Veuillez trouver ci-dessous les détails de ma demande :</p>
+
+          <!-- Informations du demandeur -->
+          <h3 class="text-success mt-4">1. Informations sur le Demandeur</h3>
+          <p><strong>Type de Demandeur :</strong> {{ infoDemande?.demandeur }}</p>
+          <p><strong>Nom :</strong> {{ infoDemande?.nom_demandeur }}</p>
+          <p><strong>Adresse :</strong> {{ infoDemande?.adresse }}</p>
+          <p><strong>CNI/NINEA :</strong> {{ infoDemande?.cin_ninea }}</p>
+          <p><strong>Contact :</strong> {{ infoDemande?.contact }}</p>
+
+          <!-- Détails de la parcelle -->
+          <h3 class="text-success mt-4">2. Controle d'éligibilité  </h3>
+          <p><strong>Numéro de Parcelle :</strong> {{ controleDemande?.numero_parcelle }}</p>
+          <p><strong>Superficie :</strong> {{ controleDemande?.hectare }} m²</p>
+          <p><strong>Type de Culture :</strong> {{ controleDemande?.culture }}</p>
+
+          <!-- Demande de ressources -->
+          <h3 class="text-success mt-4">3. Demande de Ressources</h3>
+
+          <!-- Semences Table -->
+          <h4 class="text-success mt-3">3.1 Semences</h4>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead class="bg-success text-white">
+                <tr>
+                   <th>Nom</th>
+                  <th>Variété</th>
+                  <th>Quantité (kg)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let semence of semences">
+                         <td>{{ semence.nom }}</td>
+                  <td>{{ semence.variete }}</td>
+                  <td>{{ semence.quantite }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Engrais Table -->
+          <h4 class="text-success mt-3">3.2 Engrais</h4>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead class="bg-success text-white">
+                <tr>
+                  <th>Nom</th>
+                  <th>Variété</th>
+                  <th>Quantité (kg)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let engrai of engrais">
+                  <td>{{ engrai.nom }}</td>
+                  <td>{{ engrai.variete }}</td>
+                  <td>{{ engrai.quantite }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Équipements Table -->
+          <h4 class="text-success mt-3">3.3 Équipements</h4>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead class="bg-success text-white">
+                <tr>
+                  <th>Nom</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let equipement of equipements">
+                  <td>{{ equipement.nom }}</td>
+                  <td>{{ equipement.description }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="mt-4">Je vous remercie de bien vouloir examiner ma demande avec attention. 
+     <br> Je reste à votre disposition pour fournir tout document ou information complémentaire nécessaire à l'étude de mon dossier.</p>
+
+       
+          <div class="mt-4">
+            <p><strong>{{ infoDemande?.nom_demandeur }}</strong></p>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="card-footer text-center m-3 p.1">
+        <button class="btn btn-outline-secondary me-2" (click)="downloadPDF()">
+          <i class="fas fa-file-pdf me-2"></i>
+          Télécharger en PDF
+        </button>
+        <ng-container *ngIf="demande.statut !== 'approuvee' && demande.statut !== 'refusee'">
+          <button class="btn btn-outline-success me-2" (click)="confirmDemandeStatusUpdate(demande.id, 'approuvee')">
+            <i class="fas fa-check-circle text-success me-2"></i>  Accepter la demande
+          </button>
+          <button class="btn btn-outline-danger" (click)="confirmDemandeStatusUpdate(demande.id, 'refusee')">
+            <i class="fas fa-times-circle text-danger me-2"></i>  Refuser la demande
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  

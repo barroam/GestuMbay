@@ -1,0 +1,107 @@
+<div class="container mt-4" *ngIf="projet" >
+
+    <!-- Section des boutons d'action pour le projet -->
+    <div class="row mb-3">
+      <div class="col">
+        <button class="btn text-success btn-light me-2" routerLink="/Dashbord-Admin-Projets"> 
+          <i class="fas fa-arrow-left"></i> Retour à la liste
+        </button>
+        <button class="btn text-success btn-light me-2" [routerLink]="['/Dashbord-Admin-Projets/historique', projet.id]">
+          <i class="fas fa-history"></i> Historique
+        </button>
+        <button class="btn text-success btn-light me-2" [routerLink]="['/Dashbord-Admin-Projets/add-or-update', projet.id]"> 
+          <i class="fas fa-edit"></i> Editer
+        </button>
+        <button class="btn text-success btn-light me-2" (click)="deleteProjet()"> 
+          <i class="fas fa-trash"></i> Supprimer
+        </button>
+      </div>
+    </div>
+  
+    <!-- Affichage des informations du projet -->
+    <h1 class="text-success mb-4" > Projet :</h1>
+    <div class="row mb-3">
+      <div class="col-md-5">
+        <strong>Etat:</strong>
+        <span class="badge m-2 p-2" [ngClass]="{
+          'bg-success': projet.etat === 'terminer',
+          'bg-danger': projet.etat === 'annuler',
+          'bg-white border border-success text-success': projet.etat === 'en_cours'
+        }">{{ projet.etat }}</span>
+      </div>
+      <div class="col-md-5">
+        <strong>Date:</strong> {{ projet.date | date:'dd/MM/yyyy' }}
+      </div>
+    </div>
+  
+    <!-- Sections Objectif, Attentes, Obstacles, etc. -->
+    <div class="mb-4">
+      <h4 class="text-success">Type d'activité</h4>
+      {{ projet.type_activite }}
+    </div>
+  
+    <div class="mb-4">
+      <h4 class="text-success">Attentes</h4>
+      {{ projet.attentes }}
+    </div>
+  
+    <div class="mb-4">
+      <h4 class="text-success">Obstacles</h4>
+      {{ projet.obstacles }}
+    </div>
+  
+    <div class="mb-4">
+      <h4 class="text-success">Solutions</h4>
+      <p>{{ projet.solutions }}</p>
+    </div>
+  
+    <div class="mb-4" *ngIf="projet.date_fin">
+      <h4 class="text-success">Date de fin</h4>
+      {{ projet.date_fin | date:'dd/MM/yyyy' }}
+    </div>
+    
+
+
+
+    <h3 class="mt-4 mb-3">Avis</h3>
+  
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  
+  <!-- Liste des avis -->
+  <div *ngFor="let avis of avisList" class="card mb-3">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="card-title">{{ avis.titre }}</h5>
+        <div>
+          <button class="btn btn-sm btn-outline-success me-2" (click)="editAvis(avis)" *ngIf="avis.user_id === userId"> <i class="fas fa-edit"></i> Editer</button>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteAvis(avis.id!)" *ngIf="avis.user_id === userId"><i class="fas fa-trash"></i> Supprimer </button>
+        </div>
+      </div>
+      <p class="card-text">{{ avis.description }}</p>
+      <p class="card-text">
+        <small class="text-muted">Par {{ avis.user?.name }} le {{ avis.created_at | date:'dd/MM/yyyy HH:mm' }}</small>
+      </p>
+    </div>
+  </div>
+  
+  <!-- Formulaire pour ajouter/modifier un avis -->
+  <div class="card mt-4" *ngIf="userId">
+    <div class="card-body">
+      <h5 class="card-title">{{ editingAvis ? 'Modifier l\'avis' : 'Ajouter votre avis' }}</h5>
+      <form (ngSubmit)="onSubmitAvis()">
+        <div class="mb-3">
+          <input type="text" class="form-control" [(ngModel)]="currentAvis.titre" name="titre" placeholder="Titre" required>
+        </div>
+        <div class="mb-3">
+          <textarea class="form-control" [(ngModel)]="currentAvis.description" name="description" placeholder="Votre avis" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">{{ editingAvis ? 'Mettre à jour' : 'Envoyer' }}</button>
+        <button *ngIf="editingAvis" type="button" class="btn btn-secondary ms-2"  (click)="resetAvisForm()">Annuler </button>
+      </form>
+    </div>
+  </div>
+  
+  <div *ngIf="!userId" class="alert alert-warning mt-4">
+    Vous devez être connecté pour ajouter un avis.
+  </div>
+</div>

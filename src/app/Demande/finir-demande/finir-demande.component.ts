@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from "../../layout/header/header.component";
+
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DemandesService } from '../../Services/Demandes/demandes.service';
 import { Demandes } from '../../Models/demandes';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from "../../layout/header/header.component";
 
 @Component({
   selector: 'app-finir-demande',
   standalone: true,
-  imports: [CommonModule,HeaderComponent,ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HeaderComponent],
   templateUrl: './finir-demande.component.html',
   styleUrl: './finir-demande.component.css'
 })

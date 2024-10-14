@@ -1,0 +1,51 @@
+/* Styles généraux */
+body {
+    background-color: #f0f8f0; /* Couleur de fond plus douce */
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+/* Styles de la carte */
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: #28a745; /* Vert vif pour le header */
+    color: white;
+    padding: 20px;
+}
+
+.card-body {
+    background-color: #f0f8f0; /* Fond de la carte assorti au fond général */
+    padding: 30px;
+}
+
+/* Styles de la liste */
+.list-group-item {
+    border: none;
+    background-color: #f8f9fa; /* Couleur plus claire pour les éléments de la liste */
+    margin-bottom: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #e9ecef; /* Couleur de survol plus subtile */
+}
+
+/* Style du texte */
+.text-muted {
+    font-size: 0.875rem;
+}
+
+/* Message pour aucun utilisateur */
+.text-center {
+    color: #6c757d;
+    font-style: italic;
+}

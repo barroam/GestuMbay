@@ -12,7 +12,8 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
   templateUrl: './admin-projet-list.component.html',
   styleUrl: './admin-projet-list.component.css'
 })
-export class AdminProjetListComponent {projets: Projets[] = [];
+export class AdminProjetListComponent {
+  projets: Projets[] = [];
 
   constructor(private projetsService: ProjetsService, private router: Router) {}
 

@@ -27,6 +27,26 @@ import { AdminDemandesComponent } from './Components/Admin/Demandes/admin-demand
 import { AdminDemandesAddUpdateComponent } from './Components/Admin/Demandes/admin-demandes-add-update/admin-demandes-add-update.component';
 import { AdminDemandesShowComponent } from './Components/Admin/Demandes/admin-demandes-show/admin-demandes-show.component';
 import { AdminDemandesListComponent } from './Components/Admin/Demandes/admin-demandes-list/admin-demandes-list.component';
+import { AdminUsersComponent } from './Components/Admin/Users/admin-users/admin-users.component';
+import { AdminInscriptionComponent } from './Components/Admin/Users/admin-inscription/admin-inscription.component';
+import { DashbordRoaComponent } from './layout/Roa/dashbord-roa/dashbord-roa.component';
+import { ROADashbordComponent } from './Components/ROA/roa-dashbord/roa-dashbord.component';
+import { ROADemandesListeComponent } from './Components/ROA/Demandes/roa-demandes-liste/roa-demandes-liste.component';
+import { ROADemandesComponent } from './Components/ROA/Demandes/roa-demandes/roa-demandes.component';
+import { ROAContratsComponent } from './Components/ROA/Contrats/roa-contrats/roa-contrats.component';
+import { ROAProjetsComponent } from './Components/ROA/Projets/roa-projets/roa-projets.component';
+import { RoaRessourceListeComponent } from './Components/ROA/Ressource/roa-ressource-liste/roa-ressource-liste.component';
+import { ROADemandesShowComponent } from './Components/ROA/Demandes/roa-demandes-show/roa-demandes-show.component';
+import { ROADemandesAddUpdateComponent } from './Components/ROA/Demandes/roa-demandes-add-update/roa-demandes-add-update.component';
+import { ROAContratsListeComponent } from './Components/ROA/Contrats/roa-contrats-liste/roa-contrats-liste.component';
+import { ROAContratsShowComponent } from './Components/ROA/Contrats/roa-contrats-show/roa-contrats-show.component';
+import { ROAContratsAddUpdateComponent } from './Components/ROA/Contrats/roa-contrats-add-update/roa-contrats-add-update.component';
+import { ROAProjetsListComponent } from './Components/ROA/Projets/roa-projets-list/roa-projets-list.component';
+import { ROAProjetsShowComponent } from './Components/ROA/Projets/roa-projets-show/roa-projets-show.component';
+import { ROAProjetsAddUpdateComponent } from './Components/ROA/Projets/roa-projets-add-update/roa-projets-add-update.component';
+import { RoaRessourceSemencesComponent } from './Components/ROA/Ressource/roa-ressource-semences/roa-ressource-semences.component';
+import { RoaRessourceEquipementComponent } from './Components/ROA/Ressource/roa-ressource-equipement/roa-ressource-equipement.component';
+import { RoaRessourceEngraisComponent } from './Components/ROA/Ressource/roa-ressource-engrais/roa-ressource-engrais.component';
 
 
 export const routes: Routes = [
@@ -47,9 +67,15 @@ export const routes: Routes = [
     children: [
         {path: '', redirectTo: 'Dashbord-Admin-Accueil', pathMatch: 'full'},
         {path: 'Dashbord-Admin-Accueil', component: DashbordComponent},
-        {path: 'Dashbord-Admin-Utilisateurs', component: AdminUserListComponent},
-        {path: 'Dashbord-Admin-Demandes', component: AdminDemandesComponent,
-
+        {path: 'Dashbord-Admin-Utilisateurs',
+         component: AdminUsersComponent,
+            children: [
+                {path: '', redirectTo: 'liste', pathMatch: 'full'},
+                {path: 'liste', component: AdminUserListComponent},
+                {path: 'inscription', component: AdminInscriptionComponent}, 
+            ]
+        },{
+            path: 'Dashbord-Admin-Demandes', component: AdminDemandesComponent,
             children: [
                 {path: '', redirectTo: 'liste', pathMatch: 'full'},
                 {path: 'liste', component: AdminDemandesListComponent},
@@ -57,7 +83,6 @@ export const routes: Routes = [
                 {path: 'add-or-update', component: AdminDemandesAddUpdateComponent}, 
                 {path: 'add-or-update/:id', component: AdminDemandesAddUpdateComponent}, 
             ]
-
         },
         {
             path: 'Dashbord-Admin-Projets',
@@ -95,8 +120,67 @@ export const routes: Routes = [
     ]
 },
 
+{
+    path: '',
+    component: DashbordRoaComponent,
+    children: [
+        {path: '', redirectTo: 'Dashbord-ROA-Accueil', pathMatch: 'full'},
+        {path: 'Dashbord-ROA-Accueil', component: ROADashbordComponent },
+        {path: 'Dashbord-ROA-Demandes',
+         component:ROADemandesComponent ,
+          children: [
+            {path: '', redirectTo: 'liste',pathMatch:'full'},
+            {path: 'liste', component: ROADemandesListeComponent},
+            {path:'show/:id', component:ROADemandesShowComponent},
+            {path:'add-or-update',component:ROADemandesAddUpdateComponent},
+            {path:'add-or-update/:id',component:ROADemandesAddUpdateComponent}
+         ]
+
+        },
+        {path: 'Dashbord-ROA-Contrats', 
+            component: ROAContratsComponent , children: [
+                {path: '', redirectTo: 'liste',pathMatch:'full'},
+                {path: 'liste', component:ROAContratsListeComponent },
+                {path: 'show/:id', component:ROAContratsShowComponent },
+                {path: 'add-or-update', component:ROAContratsAddUpdateComponent },
+                {path: 'add-or-update/:id', component:ROAContratsAddUpdateComponent },
+            ]
+        },
+        {path: 'Dashbord-ROA-Projets',
+         component: ROAProjetsComponent , children: [
+            {path: '', redirectTo: 'liste',pathMatch:'full'},
+            {path: 'liste', component:ROAProjetsListComponent },
+            {path: 'show/:id', component:ROAProjetsShowComponent},
+            {path: 'add-or-update', component:ROAProjetsAddUpdateComponent },
+            {path: 'add-or-update/:id', component:ROAProjetsAddUpdateComponent },
+         ]
+        },
+        {path: 'Dashbord-ROA-Ressources', component: RoaRessourceListeComponent,
+            children: [
+                {path: '', redirectTo: 'Semences', pathMatch: 'full'},
+                {path: 'Semences', component:RoaRessourceSemencesComponent},
+                {path: 'Equipement', component:RoaRessourceEquipementComponent},
+                {path: 'Engrais', component:RoaRessourceEngraisComponent},
+            ]
+        },
+    
+    
+    ]
+},
+
+
+
+
+
+
+
+
+
+
+
+
 // Redirection par défaut
-{path: '**', redirectTo: 'Dashbord-Admin-Accueil', pathMatch: 'full'},
+{path: '**', redirectTo: '', pathMatch: 'full'},
 ];
 
 

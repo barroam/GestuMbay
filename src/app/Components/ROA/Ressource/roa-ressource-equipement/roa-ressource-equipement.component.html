@@ -1,0 +1,75 @@
+<!-- src/app/components/admin-equipement/admin-equipement.component.html -->
+<div class="container">
+    <h1>Gestion des Équipements</h1>
+    
+    <!-- Bouton pour ajouter un équipement -->
+    <button class="btn add-btn" (click)="openPopup()">Ajouter un équipement</button>
+  
+    <!-- Tableau pour afficher la liste des équipements -->
+    <table>
+      <thead>
+        <tr>
+        <th>Image</th>
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let equipement of equipements; trackBy: trackByFn">
+            <td><img [src]="equipement.image" alt="{{ equipement.nom }}"          width="70" height="70" 
+                style="object-fit:cover;" ></td>
+          <td>{{ equipement.nom }}</td>
+          <td>{{ equipement.description }}</td>
+          <td>
+            <button class="edit-btn btn btn-warning" (click)="openPopup(equipement)">Modifier</button>
+            <button class="delete-btn btn btn-danger" (click)="deleteEquipement(equipement.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+  <!-- admin-ressource-equipement.component.html -->
+<div *ngIf="showPopup" class="popup-overlay d-flex justify-content-center align-items-center">
+    <div class="popup bg-white p-4 rounded shadow">
+      <h2 class="text-center">{{ editingEquipement ? 'Modifier' : 'Ajouter' }} un équipement</h2>
+      <form [formGroup]="equipementForm" (ngSubmit)="saveEquipement()">
+        <div class="mb-3">
+          <label for="nom" class="form-label">Nom:</label>
+          <input id="nom" formControlName="nom" type="text" class="form-control" required>
+          <div *ngIf="equipementForm.get('nom')?.invalid && equipementForm.get('nom')?.touched" class="text-danger">
+            Le nom est requis.
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="description" class="form-label">Description:</label>
+          <input id="description" formControlName="description" type="text" class="form-control" required>
+          <div *ngIf="equipementForm.get('description')?.invalid && equipementForm.get('description')?.touched" class="text-danger">
+            La description est requise.
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="image" class="form-label">URL de l'image:</label>
+          <input id="image" formControlName="image" type="text" class="form-control" required>
+          <div *ngIf="equipementForm.get('image')?.invalid && equipementForm.get('image')?.touched" class="text-danger">
+            Une URL valide est requise.
+          </div>
+        </div>
+  
+        <div class="preview mb-3" *ngIf="equipementForm.value.image">
+          <h5>Aperçu de l'image:</h5>
+          <img [src]="equipementForm.value.image" alt="Aperçu de l'équipement" class="img-fluid" />
+        </div>
+  
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-success" [disabled]="equipementForm.invalid">{{ editingEquipement ? 'Modifier' : 'Ajouter' }}</button>
+          <button type="button" (click)="closePopup()" class="btn btn-secondary">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  </div>
+  

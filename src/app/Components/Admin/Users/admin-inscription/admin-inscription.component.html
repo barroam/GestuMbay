@@ -1,0 +1,78 @@
+<div class="container mt-5">
+    <button class="btn text-success btn-light me-2 border border border-success" routerLink="/Dashbord-Admin-Utilisateurs/liste">Retour a la liste</button>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-lg">
+          <div class="card-header bg-success text-white">
+            <h2 class="text-center mb-0">Inscription</h2>
+          </div>
+          <div class="card-body bg-light">
+            <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()">
+              <!-- Champ Nom -->
+              <div class="mb-3">
+                <label for="name" class="form-label">Nom</label>
+                <input id="name" formControlName="name" class="form-control" required>
+                <div *ngIf="inscriptionForm.get('name')?.invalid && inscriptionForm.get('name')?.touched" class="text-danger">
+                  <small *ngIf="inscriptionForm.get('name')?.errors?.['required']">Nom requis</small>
+                  <small *ngIf="inscriptionForm.get('name')?.errors?.['maxlength']">Le nom ne doit pas dépasser 255 caractères</small>
+                </div>
+              </div>
+  
+              <!-- Champ Email -->
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" type="email" formControlName="email" class="form-control" required>
+                <div *ngIf="inscriptionForm.get('email')?.invalid && inscriptionForm.get('email')?.touched" class="text-danger">
+                  <small *ngIf="inscriptionForm.get('email')?.errors?.['required']">Email requis</small>
+                  <small *ngIf="inscriptionForm.get('email')?.errors?.['email']">Email invalide</small>
+                  <small *ngIf="inscriptionForm.get('email')?.errors?.['maxlength']">L'email ne doit pas dépasser 255 caractères</small>
+                </div>
+              </div>
+  
+              <!-- Champ Mot de passe -->
+              <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input id="password" type="password" formControlName="password" class="form-control" required>
+                <div *ngIf="inscriptionForm.get('password')?.invalid && inscriptionForm.get('password')?.touched" class="text-danger">
+                  <small *ngIf="inscriptionForm.get('password')?.errors?.['required']">Mot de passe requis</small>
+                  <small *ngIf="inscriptionForm.get('password')?.errors?.['minlength']">Le mot de passe doit contenir au moins 8 caractères</small>
+                </div>
+              </div>
+  
+              <!-- Champ Confirmation du mot de passe -->
+              <div class="mb-3">
+                <label for="password_confirmation" class="form-label">Confirmer le mot de passe</label>
+                <input id="password_confirmation" type="password" formControlName="password_confirmation" class="form-control" required>
+                <div *ngIf="inscriptionForm.get('password_confirmation')?.invalid && inscriptionForm.get('password_confirmation')?.touched" class="text-danger">
+                  <small *ngIf="inscriptionForm.get('password_confirmation')?.errors?.['required']">Confirmation du mot de passe requise</small>
+                  <small *ngIf="inscriptionForm.get('password_confirmation')?.errors?.['mismatch']">Les mots de passe ne correspondent pas</small>
+                </div>
+              </div>
+  
+              <!-- Champ Sélection du rôle -->
+              <div class="mb-3">
+                <label for="role" class="form-label">Rôle</label>
+                <select id="role" formControlName="role" class="form-control" required>
+                  <option value="" disabled>Sélectionnez un rôle</option>
+                  <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+                </select>
+                <div *ngIf="inscriptionForm.get('role')?.invalid && inscriptionForm.get('role')?.touched" class="text-danger">
+                  <small *ngIf="inscriptionForm.get('role')?.errors?.['required']">Rôle requis</small>
+                  <small *ngIf="inscriptionForm.get('role')?.errors?.['pattern']">Rôle invalide</small>
+                </div>
+              </div>
+              <!-- Bouton Soumettre -->
+              <div class="d-grid">
+                <button type="submit" class="btn btn-success btn-lg" [disabled]="inscriptionForm.invalid">S'inscrire</button>
+              </div>
+            </form>
+          </div>
+        </div>
+  
+        <!-- Message d'erreur global -->
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+          {{ errorMessage }}
+        </div>
+      </div>
+    </div>
+  </div>

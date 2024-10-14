@@ -1,0 +1,55 @@
+<div class="container">
+    <h1>Gestion des Engrais</h1>
+    <button class="btn  add-btn" (click)="openPopup()">Ajouter un Engrais</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Nom</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let engrais of engrais; trackBy: trackByFn">
+                <td>
+                    <img class="shadow-sm rounded-1" [src]="engrais.image" 
+                         alt="{{ engrais.nom }}" 
+                         width="70" height="70" 
+                         style="object-fit:cover;" />
+                  </td>
+           
+                  
+                <td>{{ engrais.nom }}</td>
+        
+                <td>
+                    <button class="btn btn-warning" (click)="openPopup(engrais) " class="edit-btn btn btn-warning shadow-sm ">Modifier</button>
+                    <button class="btn btn-danger" (click)="deleteEngrais(engrais.id)" class="delete-btn btn btn-danger shadow-sm ">Supprimer</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="showPopup" class="popup-overlay d-flex justify-content-center align-items-center">
+        <div class="popup bg-white p-4 rounded shadow">
+          <h2 class="text-center text-success">{{ editingEngrais ? 'Modifier' : 'Ajouter' }} un engrais</h2>
+          <form [formGroup]="engraisForm" (ngSubmit)="saveEngrais()">
+            <div class="mb-3">
+              <label for="nom" class="form-label">Nom:</label>
+              <input id="nom" formControlName="nom" required class="form-control" placeholder="Entrez le nom de l'engrais">
+            </div>
+            <div class="mb-3">
+              <label for="image" class="form-label">URL de l'image:</label>
+              <input id="image" formControlName="image" required class="form-control" placeholder="Entrez l'URL de l'image">
+            </div>
+            <div class="preview mb-3">
+              <img [src]="engraisForm.value.image" alt="Aperçu" class="img-fluid" *ngIf="engraisForm.value.image">
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-success">Sauvegarder</button>
+              <button type="button" (click)="closePopup()" class="btn btn-secondary">Annuler</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+
+</div>

@@ -6,4 +6,5 @@ export interface Users {
     email: string;
     password: string;
     roles?: Role[];
+    role?:string
 }
