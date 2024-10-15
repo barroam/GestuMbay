@@ -47,6 +47,17 @@ import { ROAProjetsAddUpdateComponent } from './Components/ROA/Projets/roa-proje
 import { RoaRessourceSemencesComponent } from './Components/ROA/Ressource/roa-ressource-semences/roa-ressource-semences.component';
 import { RoaRessourceEquipementComponent } from './Components/ROA/Ressource/roa-ressource-equipement/roa-ressource-equipement.component';
 import { RoaRessourceEngraisComponent } from './Components/ROA/Ressource/roa-ressource-engrais/roa-ressource-engrais.component';
+import { DashbordAgriculteurComponent } from './layout/Agriculteur/dashbord-agriculteur/dashbord-agriculteur.component';
+import { AgriculteursDashbordComponent } from './Components/Agriculteur/agriculteurs-dashbord/agriculteurs-dashbord.component';
+import { AgriculteursDemandesComponent } from './Components/Agriculteur/agriculteurs-demandes/agriculteurs-demandes.component';
+import { AgriculteursContratsComponent } from './Components/Agriculteur/agriculteurs-contrats/agriculteurs-contrats.component';
+import { AgriculteursProjetsComponent } from './Components/Agriculteur/agriculteurs-projets/agriculteurs-projets.component';
+import { AgriculteursRessourcesComponent } from './Components/Agriculteur/agriculteurs-ressources/agriculteurs-ressources.component';
+import { DashbordFournisseurComponent } from './layout/Fournisseur/dashbord-fournisseur/dashbord-fournisseur.component';
+import { FournisseursDashbordComponent } from './Components/Fournisseurs/fournisseurs-dashbord/fournisseurs-dashbord.component';
+import { FournisseursContratsComponent } from './Components/Fournisseurs/fournisseurs-contrats/fournisseurs-contrats.component';
+import { FournisseursProjetsComponent } from './Components/Fournisseurs/fournisseurs-projets/fournisseurs-projets.component';
+import { FournisseursRessourcesComponent } from './Components/Fournisseurs/fournisseurs-ressources/fournisseurs-ressources.component';
 
 
 export const routes: Routes = [
@@ -168,6 +179,31 @@ export const routes: Routes = [
     ]
 },
 
+
+//LES ROUTES POUR L'AGRICULTEURS
+{
+    path: '',
+    component: DashbordAgriculteurComponent,
+    children: [
+        {path: '', redirectTo: 'Dashbord-Agriculteur-Accueil', pathMatch: 'full'},
+        {path: 'Dashbord-Agriculteur-Accueil', component:AgriculteursDashbordComponent },
+         {path:'Dashbord-Agriculteur-Demande', component:AgriculteursDemandesComponent},
+         {path:'Dashbord-Agriculteur-Contrat',component:AgriculteursContratsComponent},
+         {path:'Dashbord-Agriculteur-Projet',component:AgriculteursProjetsComponent},
+         {path:'Dashbord-Agriculteur-Ressources',component:AgriculteursRessourcesComponent},
+]},
+
+
+{
+    path: '',
+    component: DashbordFournisseurComponent,
+    children: [
+        {path: '', redirectTo: 'Dashbord-Fournisseur-Accueil', pathMatch: 'full'},
+        {path: 'Dashbord-Fournisseur-Accueil',component:FournisseursDashbordComponent },
+         {path:'Dashbord-Fournisseur-Contrat',component:FournisseursContratsComponent},
+         {path:'Dashbord-Fournisseur-Projet',component:FournisseursProjetsComponent},
+         {path:'Dashbord-Fournisseur-Ressources',component:FournisseursRessourcesComponent},
+]},
 
 
 

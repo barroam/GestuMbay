@@ -81,6 +81,14 @@ export class UsersService {
       );
   }
 
+  // les details d'un contrat par utlisateur
+  getContrat(id: number): Observable<any> {
+    return this.http.get<any>(`${apiUrl}/user/${id}/contrat/`, { headers: this.getHeaders() })
+      .pipe(
+        tap(response => console.log('Contrat récupéré:', response)),
+        catchError(this.handleError<any>('getContrat'))
+      );
+  }
   // Gestion des erreurs
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
