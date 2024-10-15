@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { PartageServicesService } from '../../../Services/partageServices/partage-services.service';
 import { ProjetsService } from '../../../Services/Projets/projets.service';
 import { AvisService } from '../../../Services/Avis/avis.service';
+import { StorageService } from '../../../Services/Storage/storage.service';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class FournisseursProjetsComponent implements OnInit {
     private partageService: PartageServicesService,
     private projetsService: ProjetsService,
     private avisService: AvisService,
-    private router: Router
+    private router: Router,
+    private storageService: StorageService // Injection du service de stockage
   ) {}
 
   ngOnInit(): void {
@@ -46,8 +48,8 @@ export class FournisseursProjetsComponent implements OnInit {
   }
 
   getUserData(): void {
-    const user = localStorage.getItem('user');
-    
+    const user = this.storageService.getLocalItem('user'); // Utilisation du service de stockage
+
     if (user) {
       const userData = JSON.parse(user);
       

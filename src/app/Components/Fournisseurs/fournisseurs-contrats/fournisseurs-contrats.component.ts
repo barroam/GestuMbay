@@ -3,6 +3,7 @@ import { UsersService } from '../../../Services/Users/users.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { StorageService } from '../../../Services/Storage/storage.service';
 
 @Component({
   selector: 'app-fournisseurs-contrats',
@@ -16,10 +17,10 @@ export class FournisseursContratsComponent implements OnInit {
   user: any; // Stocker les informations utilisateur
   errorMessage: string = '';
 
-  constructor(private userService: UsersService) {}
+  constructor(private userService: UsersService, private storageService: StorageService) {} // Ajout du StorageService
 
   ngOnInit(): void {
-    const userData: string | null = localStorage.getItem('user');
+    const userData: string | null = this.storageService.getLocalItem('user'); // Utilisation du StorageService
 
     if (userData) {
       try {
@@ -36,7 +37,6 @@ export class FournisseursContratsComponent implements OnInit {
               // Supposons que 'response.contrats' soit un tableau
               if (response && Array.isArray(response.contrats)) {
                 const contrats = response.contrats;
-                //console.log('Contrats:', contrats);
 
                 if (contrats.length > 0) {
                   // Récupérer le dernier contrat
@@ -62,7 +62,8 @@ export class FournisseursContratsComponent implements OnInit {
         console.error(this.errorMessage, error);
       }
     } else {
-      this.errorMessage = 'Aucune donnée utilisateur trouvée dans localStorage';
+      this.errorMessage = 'Aucune donnée utilisateur trouvée dans le stockage.';
     }
   }
+
 }

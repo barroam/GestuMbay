@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { StorageService } from '../../Services/Storage/storage.service';
 
 @Component({
   selector: 'app-header',
@@ -11,10 +12,11 @@ import { RouterLink } from '@angular/router';
 })
 export class HeaderComponent {
   username: string | null = null;
+  
 
-  constructor() {
-    // Récupérer l'objet utilisateur depuis le localStorage
-    const user = localStorage.getItem('user');
+  constructor(private storageService: StorageService) {
+    // Récupérer l'objet utilisateur depuis le StorageService
+    const user = this.storageService.getLocalItem('user');
     if (user) {
       const userData = JSON.parse(user); // Analyser la chaîne JSON
       this.username = userData.name; // Extraire le nom

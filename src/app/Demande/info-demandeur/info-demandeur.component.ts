@@ -4,6 +4,7 @@ import { InfoDemandesService } from '../../Services/Info-demandes/info-demandes.
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { InfoDemande } from '../../Models/info-demande';
 import { CommonModule } from '@angular/common';
+import { StorageService } from '../../Services/Storage/storage.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class InfoDemandeurComponent implements OnInit {
   constructor(
     private fb: FormBuilder, 
     private demandeService: InfoDemandesService, 
-    private router: Router
+    private router: Router,
+    private storageService: StorageService // Injectez le StorageService
   ) {
     this.infoDemandeForm = this.fb.group({
       demandeur: ['', Validators.required],
@@ -33,8 +35,8 @@ export class InfoDemandeurComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Utilisation de sessionStorage pour récupérer l'ID de la demande
-    this.demandeId = sessionStorage.getItem('demandeId');
+    // Utilisation du StorageService pour récupérer l'ID de la demande
+    this.demandeId = this.storageService.getSessionItem('demandeId');
     if (this.demandeId) {
       this.demandeService.getInfoDemandeById(Number(this.demandeId)).subscribe(
         (infoDemande: InfoDemande) => {
@@ -73,8 +75,8 @@ export class InfoDemandeurComponent implements OnInit {
           (response: InfoDemande) => {
             console.log('Demande ajoutée avec succès:', response);
             if (response && response.id) {
-              // Stocker l'ID de la demande dans sessionStorage
-              sessionStorage.setItem('demandeId', response.id.toString());
+              // Stocker l'ID de la demande dans le StorageService
+              this.storageService.setSessionItem('demandeId', response.id.toString());
               
               this.router.navigate(['/demande-controle-eligibilite']);
             } else {
@@ -89,4 +91,5 @@ export class InfoDemandeurComponent implements OnInit {
     } else {
       console.error('Formulaire invalide:', this.infoDemandeForm.errors);
     }
-  }}
+  }
+}

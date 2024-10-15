@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Users } from '../../../Models/users';
 import { SidebarRoaComponent } from '../sidebar-roa/sidebar-roa.component';
+import { StorageService } from '../../../Services/Storage/storage.service';
 
 
 @Component({
@@ -14,13 +15,13 @@ import { SidebarRoaComponent } from '../sidebar-roa/sidebar-roa.component';
 export class DashbordRoaComponent {
   user: Users | null = null; // Déclarer user comme null au départ
 
-  constructor() {}
+  constructor(private storageService: StorageService) {} // Injectez le StorageService
 
   ngOnInit(): void {
-    // Récupérer l'utilisateur de localStorage
-    const userData: string | null = localStorage.getItem('user');
-
     // Vérifier si l'utilisateur existe dans localStorage
+    const userData: string | null = this.storageService.getLocalItem('user');
+
+    // Vérifier si l'utilisateur existe
     if (userData) {
       // Parser la chaîne JSON en objet de type 'Users'
       this.user = JSON.parse(userData) as Users;
@@ -31,4 +32,5 @@ export class DashbordRoaComponent {
     } else {
       console.log('Utilisateur non trouvé dans localStorage');
     }
-  } }
+  }
+}

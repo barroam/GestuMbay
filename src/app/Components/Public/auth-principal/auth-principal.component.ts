@@ -4,7 +4,7 @@ import { ConnexionComponent } from "../connexion/connexion.component";
 import { CommonModule } from '@angular/common';
 
 import { RouterLink } from '@angular/router';
-import { link } from 'fs';
+
 
 @Component({
   selector: 'app-auth-principal',

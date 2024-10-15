@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ControleDemande } from '../../Models/controle-demande';
 import { ControleDemandesService } from '../../Services/Controle-demandes/controle-demandes.service';
+import { StorageService } from '../../Services/Storage/storage.service';
 
 @Component({
   selector: 'app-controle',
@@ -16,12 +17,11 @@ export class ControleComponent implements OnInit {
   eligibiliteForm: FormGroup;
   controleId: number | null = null;
 
-
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private controleService: ControleDemandesService,
-   
+    private storageService: StorageService // Ajoutez le service de stockage ici
   ) {
     // Initialisation du formulaire
     this.eligibiliteForm = this.fb.group({
@@ -36,12 +36,12 @@ export class ControleComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    // Récupérer l'ID de la demande stockée dans localStorage
-    const controleIdStr = sessionStorage.getItem('controleId');
+    // Récupérer l'ID de la demande stockée dans le service de stockage
+    const controleIdStr = this.storageService.getSessionItem('controleId');
     const controleId = Number(controleIdStr);
 
-    if (controleId !== null && !isNaN(Number(controleId))) {
-      this.controleId = Number(controleIdStr);
+    if (controleId !== null && !isNaN(controleId)) {
+      this.controleId = controleId;
       this.loadControleDemande(this.controleId); // Charger les données si l'ID est valide
     } else {
       this.controleId = null;
@@ -95,7 +95,7 @@ export class ControleComponent implements OnInit {
           (response: any) => {
             if (response && response.data.id) {
               console.log('Nouvelle demande créée avec succès :', response);
-              sessionStorage.setItem('controleId', response.data.id.toString()); // Stocker l'ID
+              this.storageService.setSessionItem('controleId', response.data.id.toString()); // Stocker l'ID avec le service de stockage
               this.router.navigate(['/demande-ressource']);
             } else {
               console.error('Problème avec l\'ID de la demande dans la réponse :', response);
@@ -114,5 +114,4 @@ export class ControleComponent implements OnInit {
   goBack() {
     this.router.navigate(['/demande-info-demandeur']);
   }
-
 }

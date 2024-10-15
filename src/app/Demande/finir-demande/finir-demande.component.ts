@@ -5,6 +5,7 @@ import { DemandesService } from '../../Services/Demandes/demandes.service';
 import { Demandes } from '../../Models/demandes';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../../layout/header/header.component";
+import { StorageService } from '../../Services/Storage/storage.service';
 
 @Component({
   selector: 'app-finir-demande',
@@ -18,7 +19,7 @@ export class FinirDemandeComponent implements OnInit {
   isProcessing: boolean = false;
   noIds: boolean = false;
 
-  constructor(private fb: FormBuilder, private demandesService: DemandesService) {
+  constructor(private fb: FormBuilder, private demandesService: DemandesService, private storageService: StorageService) { // Ajout du service de stockage
     // Initialisation du formulaire
     this.demandeForm = this.fb.group({
       titre: ['', Validators.required] // Champ requis pour le titre
@@ -26,11 +27,11 @@ export class FinirDemandeComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Vérifiez si les IDs nécessaires sont présents dans le sessionStorage
+    // Vérifiez si les IDs nécessaires sont présents dans le service de stockage
 
-    const controleDemandeId = sessionStorage.getItem('controleId');
-    const infoDemandeId = sessionStorage.getItem('demandeId');
-    const ressourceDemandeId = sessionStorage.getItem('ressourceId');
+    const controleDemandeId = this.storageService.getSessionItem('controleId');
+    const infoDemandeId = this.storageService.getSessionItem('demandeId');
+    const ressourceDemandeId = this.storageService.getSessionItem('ressourceId');
 
     // Si l'une des valeurs est manquante, on affiche un message d'erreur
     if (!controleDemandeId || !infoDemandeId || !ressourceDemandeId) {
@@ -39,24 +40,21 @@ export class FinirDemandeComponent implements OnInit {
   }
 
   onSubmit() {
-
     // Validation du formulaire avant la soumission
     if (this.demandeForm.valid && !this.noIds) {
-      // Récupération des identifiants dans le sessionStorage
-      const controleDemandeId = sessionStorage.getItem('controleId');
-      const infoDemandeId = sessionStorage.getItem('demandeId');
-      const ressourceDemandeId = sessionStorage.getItem('ressourceId');
+      // Récupération des identifiants dans le service de stockage
+      const controleDemandeId = this.storageService.getSessionItem('controleId');
+      const infoDemandeId = this.storageService.getSessionItem('demandeId');
+      const ressourceDemandeId = this.storageService.getSessionItem('ressourceId');
 
-      // Récupération des informations utilisateur depuis le localStorage
-      const user = localStorage.getItem('user');
+      // Récupération des informations utilisateur depuis le service de stockage
+      const user = this.storageService.getLocalItem('user');
       if (user) {
-       
         const userData = JSON.parse(user);
         const userId = userData.id;
 
         // Vérifiez que toutes les valeurs sont présentes et correctes
         if (userId) {
-       
           // Créer l'objet de demande avec le statut par défaut 'en_attente'
           const demande: Demandes = {
             controle_demande_id: Number(controleDemandeId),
@@ -66,13 +64,13 @@ export class FinirDemandeComponent implements OnInit {
             titre: this.demandeForm.get('titre')?.value,
             statut: 'en_attente', // Valeur par défaut pour le statut
           };
-    
+
           // Soumission de la demande via le service
           this.demandesService.createDemande(demande).subscribe(
             (response: Demandes) => {
               this.isProcessing = true; // Passage à l'état de traitement
               console.log('Réponse de l\'API:', response); // Afficher la réponse de l'API
-alert(response)
+              alert(response);
               // Simuler une semaine (604 800 000 ms)
               setTimeout(() => {
                 this.isProcessing = false; // Fin de l'état de traitement après une semaine

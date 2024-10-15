@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { RouterOutlet } from '@angular/router';
 import { Users } from '../../Models/users';
+import { StorageService } from '../../Services/Storage/storage.service';
 
 @Component({
   selector: 'app-dashbord-admin',
@@ -13,13 +14,13 @@ import { Users } from '../../Models/users';
 export class DashbordAdminComponent {
   user: Users | null = null; // Déclarer user comme null au départ
 
-  constructor() {}
+  constructor(private storageService: StorageService) {} // Injectez le StorageService
 
   ngOnInit(): void {
-    // Récupérer l'utilisateur de localStorage
-    const userData: string | null = localStorage.getItem('user');
-
     // Vérifier si l'utilisateur existe dans localStorage
+    const userData: string | null = this.storageService.getLocalItem('user');
+
+    // Vérifier si l'utilisateur existe
     if (userData) {
       // Parser la chaîne JSON en objet de type 'Users'
       this.user = JSON.parse(userData) as Users;
