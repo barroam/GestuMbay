@@ -1,1 +1,33 @@
-<p>sidebar-fournisseur works!</p>
+
+
+<div class="col-md-3 col-lg-2 sidebar p-4">
+    <h1 class="text-green-600 text-center text-success Mbay">Gestu Mbay</h1>
+    <nav class="mt-4">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a [routerLink]="'/Dashbord-Fournisseur-Accueil'" routerLinkActive="active" class="nav-link text-dark">
+              <i class="fas fa-tachometer-alt"></i> Tableau de bord
+          </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="'/Dashbord-Fournisseur-Contrat'" routerLinkActive="active" class="nav-link text-dark">
+              <i class="fas fa-file-contract"></i> Contrats
+          </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="'/Dashbord-Fournisseur-Projet'" routerLinkActive="active" class="nav-link text-dark">
+              <i class="fas fa-project-diagram"></i> Projets
+          </a>
+      </li>   
+       <li class="nav-item">
+        <a [routerLink]="'/Dashbord-Fournisseur-Ressources'" routerLinkActive="active" class="nav-link text-dark">
+              <i class="fas fa-seedling"></i> Ressources
+          </a>
+      </li>
+      </ul>
+    </nav>
+    <div class="mt-5 ">
+      <button class="btn btn-help my-2 border">Centre d'aide</button>
+      <button class="btn btn-logout my-2 border">Déconnexion</button>
+    </div>
+  </div>

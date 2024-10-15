@@ -5,7 +5,7 @@ import { EngraisService } from '../../../Services/Engrais/engrais.service';
 import { EquipementsService } from '../../../Services/Equipements/equipements.service';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RessourceComponent } from "../../../Components/Agriculteur/ressource/ressource.component";
+
 import { Engrais } from '../../../Models/engrais';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {  Resource,  } from '../../../Models/ressources';

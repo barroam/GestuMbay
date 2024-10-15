@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PartageServicesService } from '../../../Services/partageServices/partage-services.service';
 import { ProjetsService } from '../../../Services/Projets/projets.service';
 import { AvisService } from '../../../Services/Avis/avis.service';
-import { Router } from 'express';
+
 
 @Component({
   selector: 'app-fournisseurs-projets',
@@ -28,7 +28,7 @@ export class FournisseursProjetsComponent implements OnInit {
     private partageService: PartageServicesService,
     private projetsService: ProjetsService,
     private avisService: AvisService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {

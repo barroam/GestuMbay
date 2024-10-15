@@ -1,1 +1,71 @@
-<p>fournisseurs-ressources works!</p>
+
+
+<main class="container mt-4">
+    <h3 class="text-success mt-4"> Demande de Ressources</h3>
+    
+    <!-- Semences Table -->
+    <h4 class="text-success mt-3">1 Semences</h4>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead class="bg-success text-white">
+          <tr>
+            <th>Nom</th>
+            <th>Variété</th>
+            <th>Quantité (kg)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let semence of semences">
+            <td>{{ semence.nom }}</td>
+            <td>{{ semence.variete }}</td>
+            <td>{{ semence.quantite }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="semences.length === 0" class="text-danger">Aucune semence disponible.</div>
+    </div>
+    
+    <!-- Engrais Table -->
+    <h4 class="text-success mt-3">2 Engrais</h4>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead class="bg-success text-white">
+          <tr>
+            <th>Nom</th>
+            <th>Variété</th>
+            <th>Quantité (kg)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let engrai of engrais">
+            <td>{{ engrai.nom }}</td>
+            <td>{{ engrai.variete }}</td>
+            <td>{{ engrai.quantite }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="engrais.length === 0" class="text-danger">Aucun engrais disponible.</div>
+    </div>
+    
+    <!-- Équipements Table -->
+    <h4 class="text-success mt-3">3 Équipements</h4>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead class="bg-success text-white">
+          <tr>
+            <th>Nom</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let equipement of equipements">
+            <td>{{ equipement.nom }}</td>
+            <td>{{ equipement.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="equipements.length === 0" class="text-danger">Aucun équipement disponible.</div>
+    </div>
+    
+    
+    </main>
