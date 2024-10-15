@@ -11,6 +11,7 @@
       "prefix": "app",
       "architect": {
         "build": {
+
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/gestu-mbay",
@@ -19,6 +20,15 @@
             "polyfills": [
               "zone.js"
             ],
+            "allowedCommonJsDependencies": [
+        "lodash",
+        "jspdf",
+        "core-js",
+        "@babel/runtime",
+        "raf",
+        "rgbcolor",
+        "canvg"
+      ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -45,8 +55,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
