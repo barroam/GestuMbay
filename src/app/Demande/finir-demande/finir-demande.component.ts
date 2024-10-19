@@ -6,11 +6,12 @@ import { Demandes } from '../../Models/demandes';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../../layout/header/header.component";
 import { StorageService } from '../../Services/Storage/storage.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-finir-demande',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HeaderComponent],
+  imports: [CommonModule, ReactiveFormsModule, HeaderComponent,RouterLink],
   templateUrl: './finir-demande.component.html',
   styleUrl: './finir-demande.component.css'
 })
@@ -50,7 +51,7 @@ export class FinirDemandeComponent implements OnInit {
       // Récupération des informations utilisateur depuis le service de stockage
       const user = this.storageService.getLocalItem('user');
       if (user) {
-        const userData = JSON.parse(user);
+        const userData = user;
         const userId = userData.id;
 
         // Vérifiez que toutes les valeurs sont présentes et correctes
@@ -70,7 +71,10 @@ export class FinirDemandeComponent implements OnInit {
             (response: Demandes) => {
               this.isProcessing = true; // Passage à l'état de traitement
               console.log('Réponse de l\'API:', response); // Afficher la réponse de l'API
-              alert(response);
+             // Supprimer les identifiants du sessionStorage
+             this.storageService.removeSessionItem('controleId');
+             this.storageService.removeSessionItem('demandeId');
+             this.storageService.removeSessionItem('ressourceId');
               // Simuler une semaine (604 800 000 ms)
               setTimeout(() => {
                 this.isProcessing = false; // Fin de l'état de traitement après une semaine

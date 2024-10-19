@@ -26,7 +26,7 @@ export class AgriculteursContratsComponent implements OnInit {
 
     if (userData) {
       try {
-        this.user = JSON.parse(userData); // Assure que les infos de l'utilisateur sont accessibles dans le template
+        this.user = userData; // Assure que les infos de l'utilisateur sont accessibles dans le template
         const userId: number = Number(this.user.id);
 
         console.log('ID utilisateur:', userId);

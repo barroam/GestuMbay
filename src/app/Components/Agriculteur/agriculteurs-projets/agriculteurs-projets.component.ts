@@ -5,11 +5,13 @@ import { AvisService } from '../../../Services/Avis/avis.service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StorageService } from '../../../Services/Storage/storage.service';
+import { UsersService } from '../../../Services/Users/users.service';
 
 @Component({
   selector: 'app-agriculteurs-projets',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,FormsModule,RouterLink],
+  imports: [CommonModule,ReactiveFormsModule,FormsModule,RouterLink,RouterLinkActive],
   templateUrl: './agriculteurs-projets.component.html',
   styleUrl: './agriculteurs-projets.component.css'
 })
@@ -20,40 +22,34 @@ export class AgriculteursProjetsComponent implements OnInit {
   currentAvis: any = { titre: '', description: '', user_id: null, projet_id: null };
   editingAvis: boolean = false;
   errorMessage: string = '';
-  userId: number | null = null; // Assurez-vous d'initialiser cet ID utilisateur
+  userId: number | null = null;
   userName: string = '';
-
+  contrat: any; // Variable pour stocker le contrat
+  user: any; // Stocker les informations utilisateur
+ 
   constructor(
-    private partageService: PartageServicesService,
     private projetsService: ProjetsService,
     private avisService: AvisService,
-    private router: Router
+    private router: Router,
+    private storageService: StorageService,
+    private userService: UsersService // Injection du service utilisateur
   ) {}
 
   ngOnInit(): void {
-    // Récupérer les données de l'utilisateur
     this.getUserData();
-    
-    // S'abonner pour recevoir les mises à jour de l'ID du projet
-    this.partageService.projetId$.subscribe(id => {
-      if (id !== null) {
-        this.projetId = id;
-        this.loadProjet(this.projetId);
-        this.loadAvis(this.projetId);
-      }
-    });
   }
 
   getUserData(): void {
-    const user = localStorage.getItem('user');
-    
+    const user = this.storageService.getLocalItem('user');
     if (user) {
-      const userData = JSON.parse(user);
-      
+      const userData = user;
       if (userData.id && typeof userData.id === 'number') {
         this.userId = userData.id;
         this.userName = userData.name;
-        this.currentAvis.user_id = this.userId;  // user_id ne sera pas null
+        this.currentAvis.user_id = this.userId;
+
+        // Récupérer les contrats de l'utilisateur
+        this.loadContrats(this.userId); // Passer userId ici
       } else {
         this.errorMessage = 'Données utilisateur non valides. Veuillez vous reconnecter.';
       }
@@ -62,17 +58,51 @@ export class AgriculteursProjetsComponent implements OnInit {
     }
   }
 
+  loadContrats(userId: number | null): void {
+    if (userId !== null) {
+      this.userService.getContrat(userId).subscribe({
+        next: (response) => {
+          if (response && Array.isArray(response.contrats)) {
+            const contrats = response.contrats;
+            if (contrats.length > 0) {
+              // Récupérer le dernier contrat
+              this.contrat = contrats[contrats.length - 1];
+              this.projetId = this.contrat.projet_id;
+
+              // Assurez-vous que projetId est un nombre avant de l'utiliser
+              if (this.projetId !== null) {
+                this.loadProjet(this.projetId);
+              } else {
+                console.error('projetId est nul. Impossible de charger le projet.');
+              }
+            }
+          }
+        },
+        error: (error) => {
+          console.error('Erreur lors de la récupération des contrats:', error);
+        },
+      });
+    } else {
+      console.error('User ID est nul. Impossible de charger les contrats.');
+    }
+  }
+
   loadProjet(id: number): void {
-    this.projetsService.getProjetById(id).subscribe(
-      (response: any) => {
-        this.projet = response.data;
-        this.currentAvis.projet_id = this.projet.id; // Utilisation de `id` sans `!`
-      },
-      (error) => {
-        console.error('Erreur lors du chargement du projet:', error);
-        this.errorMessage = 'Erreur lors du chargement du projet.';
-      }
-    );
+    if (id !== null) {
+      this.projetsService.getProjetById(id).subscribe(
+        (response: any) => {
+          this.projet = response.data;
+          this.currentAvis.projet_id = this.projet.id;
+          this.loadAvis(this.projet.id); // Appeler loadAvis après avoir chargé le projet
+        },
+        (error) => {
+          console.error('Erreur lors du chargement du projet:', error);
+          this.errorMessage = 'Erreur lors du chargement du projet.';
+        }
+      );
+    } else {
+      console.error('ID du projet est nul. Impossible de charger le projet.');
+    }
   }
 
   loadAvis(projetId: number): void {
@@ -80,7 +110,7 @@ export class AgriculteursProjetsComponent implements OnInit {
       (response: any) => {
         this.avisList = response.data.filter((avis: any) => avis.projet_id === projetId);
       },
-      error => {
+      (error) => {
         console.error('Erreur lors du chargement des avis:', error);
         this.errorMessage = 'Erreur lors du chargement des avis.';
       }
@@ -102,10 +132,10 @@ export class AgriculteursProjetsComponent implements OnInit {
   createAvis(): void {
     this.avisService.createAvis(this.currentAvis).subscribe(
       () => {
-        this.loadAvis(this.projet.id); // Utilisation de `id` sans `!`
+        this.loadAvis(this.projet.id);
         this.resetAvisForm();
       },
-      error => {
+      (error) => {
         console.error('Erreur lors de la création de l\'avis:', error);
         this.errorMessage = 'Erreur lors de la création de l\'avis. Veuillez réessayer.';
       }
@@ -115,10 +145,10 @@ export class AgriculteursProjetsComponent implements OnInit {
   updateAvis(): void {
     this.avisService.updateAvis(this.currentAvis.id, this.currentAvis).subscribe(
       () => {
-        this.loadAvis(this.projet.id); // Utilisation de `id` sans `!`
+        this.loadAvis(this.projet.id);
         this.resetAvisForm();
       },
-      error => {
+      (error) => {
         console.error('Erreur lors de la mise à jour de l\'avis:', error);
         this.errorMessage = 'Erreur lors de la mise à jour de l\'avis.';
       }
@@ -133,8 +163,8 @@ export class AgriculteursProjetsComponent implements OnInit {
   deleteAvis(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet avis ?')) {
       this.avisService.deleteAvis(id).subscribe(
-        () => this.loadAvis(this.projet.id), // Utilisation de `id` sans `!`
-        error => {
+        () => this.loadAvis(this.projet.id),
+        (error) => {
           console.error('Erreur lors de la suppression de l\'avis:', error);
           this.errorMessage = 'Erreur lors de la suppression de l\'avis.';
         }
@@ -143,8 +173,7 @@ export class AgriculteursProjetsComponent implements OnInit {
   }
 
   resetAvisForm(): void {
-    this.currentAvis = { titre: '', description: '', user_id: this.userId, projet_id: this.projet.id }; // Utilisation de `id` sans `!`
+    this.currentAvis = { titre: '', description: '', user_id: null, projet_id: null };
     this.editingAvis = false;
-    this.errorMessage = '';
   }
 }

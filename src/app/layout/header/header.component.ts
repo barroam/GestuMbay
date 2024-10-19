@@ -18,7 +18,7 @@ export class HeaderComponent {
     // Récupérer l'objet utilisateur depuis le StorageService
     const user = this.storageService.getLocalItem('user');
     if (user) {
-      const userData = JSON.parse(user); // Analyser la chaîne JSON
+      const userData = user; // Analyser la chaîne JSON
       this.username = userData.name; // Extraire le nom
     }
   }

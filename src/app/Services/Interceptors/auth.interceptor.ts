@@ -6,7 +6,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const storageService = inject(StorageService);
   
   // Récupérer le token à partir de StorageService
-  const token = storageService.getLocalItem('auth_token');
+  const token = storageService.getLocalItem('access_token');
 
   // Si pas de token, passer à la requête suivante sans modification
   if (!token) {

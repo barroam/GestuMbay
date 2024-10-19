@@ -55,10 +55,10 @@ export class ConnexionComponent {
                   this.router.navigate(['/Dashbord-Admin-Accueil']);
                   break;
                 case 'agriculteur':
-                  this.router.navigate(['/accueil']);
+                  this.router.navigate(['/Dashbord-Agriculteur-Accueil']);
                   break;
                 default:
-                  this.router.navigate(['/accueil']); // Redirection par défaut
+                  this.router.navigate(['/']); // Redirection par défaut
               }
             } else if (role.name) {
               // Si le rôle est un objet avec un nom

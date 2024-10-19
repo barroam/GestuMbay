@@ -4,6 +4,7 @@ import { PartageServicesService } from '../../../Services/partageServices/partag
 import { Router } from '@angular/router';
 import { UsersService } from '../../../Services/Users/users.service';
 import { CommonModule } from '@angular/common';
+import { StorageService } from '../../../Services/Storage/storage.service';
 
 @Component({
   selector: 'app-fournisseurs-ressources',
@@ -13,7 +14,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './fournisseurs-ressources.component.css'
 })
 export class FournisseursRessourcesComponent implements OnInit {
-  semences: any[] = [];
+   semences: any[] = [];
   engrais: any[] = [];
   equipements: any[] = [];
   errorMessage: string = '';
@@ -26,18 +27,19 @@ export class FournisseursRessourcesComponent implements OnInit {
   constructor(
     private ressourcesService: RessourcesService,
     private router: Router,
-    private userService: UsersService
+    private userService: UsersService,
+    private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
     // Récupérer les données utilisateur depuis le localStorage
-    const userData: string | null = localStorage.getItem('user');
+    const userData: string | null = this.storageService.getLocalItem('user');
 
     if (userData) {
       try {
-        this.user = JSON.parse(userData); // Convertir en JSON
+        this.user =userData; // Convertir en JSON
         const userId: number = Number(this.user.id);
-
+        
         if (userId) {
           // Récupérer les contrats de l'utilisateur
           this.userService.getContrat(userId).subscribe({
@@ -49,8 +51,7 @@ export class FournisseursRessourcesComponent implements OnInit {
                   // Récupérer le dernier contrat
                   this.contrat = contrats[contrats.length - 1];
                   this.ressourceId = this.contrat.ressource_id;
-                  this.projetId = this.contrat.projet_id;
-
+               
                   // Charger les détails de la ressource à partir de l'ID récupéré
                   this.chargerDetailsRessource(this.ressourceId);
                 } else {
@@ -112,4 +113,4 @@ export class FournisseursRessourcesComponent implements OnInit {
       }
     );
   }
-}
+}  

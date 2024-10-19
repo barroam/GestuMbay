@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../../Services/Users/users.service';
 import { PartageServicesService } from '../../../Services/partageServices/partage-services.service';
+import { StorageService } from '../../../Services/Storage/storage.service';
 
 @Component({
   selector: 'app-agriculteurs-dashbord',
@@ -18,16 +19,16 @@ export class AgriculteursDashbordComponent implements OnInit {
 
   constructor(
     private userService: UsersService ,
-    private partageService:PartageServicesService
-
+    private partageService:PartageServicesService,
+    private storageService:StorageService
   ) {}
 
   ngOnInit(): void {
-    const userData: string | null = localStorage.getItem('user');
+    const userData: string | null = this.storageService.getLocalItem('user')
 
     if (userData) {
       try {
-        this.user = JSON.parse(userData); // Assure que les infos de l'utilisateur sont accessibles dans le template
+        this.user = userData; // Assure que les infos de l'utilisateur sont accessibles dans le template
         const userId: number = Number(this.user.id);
 
         console.log('ID utilisateur:', userId);
@@ -46,8 +47,7 @@ export class AgriculteursDashbordComponent implements OnInit {
                   this.contrat = contrats[contrats.length - 1];
                   this.ressourceId = this.contrat.ressource_id; // Stocker l'ID de la ressource
                   this.projetId = this.contrat.projet_id; 
-                  this.partageService.setRessourceId(this.contrat.ressource_id);
-                  this.partageService.setProjetId(this.contrat.projet_id);
+             
                  // console.log('Dernier contrat:', this.contrat);
                   
                 } else {

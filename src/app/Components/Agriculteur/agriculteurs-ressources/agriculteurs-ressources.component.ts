@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UsersService } from '../../../Services/Users/users.service';
+import { StorageService } from '../../../Services/Storage/storage.service';
 
 @Component({
   selector: 'app-agriculteurs-ressources',
@@ -21,57 +22,39 @@ export class AgriculteursRessourcesComponent implements OnInit {
   contrat: any;
   user: any; // Stocker les informations utilisateur
 
-  ressourceId:any;
-  projetId:any;
-  
+  ressourceId: any;
+  projetId: any;
+
   constructor(
     private ressourcesService: RessourcesService,
-    private partageService: PartageServicesService, // Injection du service PartageServicesService
     private router: Router,
-    private userService: UsersService ,
-
+    private userService: UsersService,
+    private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
-
-
-
-    // S'abonner pour recevoir les mises à jour de l'ID de la ressource
-    this.partageService.ressourceId$.subscribe(id => {
-      if (id !== null) {
-        this.chargerDetailsRessource(12);
-      } else {
-        this.errorMessage = 'ID de ressource non valide.';
-      }
-    });
- 
-    const userData: string | null = localStorage.getItem('user');
+    // Récupérer les données utilisateur depuis le localStorage
+    const userData: string | null = this.storageService.getLocalItem('user');
 
     if (userData) {
       try {
-        this.user = JSON.parse(userData); // Assure que les infos de l'utilisateur sont accessibles dans le template
+        this.user =userData; // Convertir en JSON
         const userId: number = Number(this.user.id);
-//
-    //    console.log('ID utilisateur:', userId);
-
+        
         if (userId) {
+          // Récupérer les contrats de l'utilisateur
           this.userService.getContrat(userId).subscribe({
             next: (response) => {
-              console.log('Réponse complète de l\'API:'); // Utilisez cela pour voir la structure exacte des données
-
-              // Supposons que 'response.contrats' soit un tableau
               if (response && Array.isArray(response.contrats)) {
                 const contrats = response.contrats;
-                console.log('Contrats:',);
+
                 if (contrats.length > 0) {
                   // Récupérer le dernier contrat
                   this.contrat = contrats[contrats.length - 1];
-                  this.ressourceId = this.contrat.ressource_id; // Stocker l'ID de la ressource
-                  this.projetId = this.contrat.projet_id; 
-                  this.partageService.setRessourceId(this.contrat.ressource_id);
-                  this.partageService.setProjetId(this.contrat.projet_id);
-               //   console.log('Dernier contrat:', this.contrat);
-                  
+                  this.ressourceId = this.contrat.ressource_id;
+           
+                  // Charger les détails de la ressource à partir de l'ID récupéré
+                  this.chargerDetailsRessource(this.ressourceId);
                 } else {
                   this.errorMessage = 'Aucun contrat disponible pour cet utilisateur.';
                 }
@@ -85,18 +68,19 @@ export class AgriculteursRessourcesComponent implements OnInit {
             }
           });
         } else {
-          this.errorMessage = 'ID de l\'utilisateur non trouvé';
+          this.errorMessage = 'ID de l\'utilisateur non trouvé.';
         }
       } catch (error) {
         this.errorMessage = 'Erreur de parsing des données utilisateur';
         console.error(this.errorMessage, error);
       }
     } else {
-      this.errorMessage = 'Aucune donnée utilisateur trouvée dans localStorage';
+      this.errorMessage = 'Aucune donnée utilisateur trouvée dans localStorage.';
     }
   }
 
   chargerDetailsRessource(ressourceId: number): void {
+    // Charger les détails de la ressource à partir de son ID
     this.ressourcesService.getRessourceById(ressourceId).subscribe(
       (data: any) => {
         // Traitement des semences
@@ -116,10 +100,10 @@ export class AgriculteursRessourcesComponent implements OnInit {
         // Traitement des équipements
         this.equipements = data.equipements?.map((e: any) => ({
           ...e,
-          description: e.pivot ? e.pivot.description : e.description // Si "pivot" est utilisé pour les descriptions
+          description: e.pivot ? e.pivot.description : e.description
         })) || [];
 
-        // Logs pour vérifier les données chargées
+        // Afficher les données chargées
         console.log('Semences:', this.semences);
         console.log('Engrais:', this.engrais);
         console.log('Equipements:', this.equipements);
@@ -130,6 +114,4 @@ export class AgriculteursRessourcesComponent implements OnInit {
       }
     );
   }
-
-
-}
+}  
