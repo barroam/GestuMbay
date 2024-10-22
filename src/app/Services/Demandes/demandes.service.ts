@@ -79,6 +79,7 @@ export class DemandesService {
 
 
   // Service method to update the status of a demande
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 updateDemandeStatus(id: number, statut: string): Observable<any> {
   const body = { statut };
   return this.http.patch<any>(`${apiUrl}/demandes/${id}/status`, body, { headers: this.getHeaders() })
@@ -90,5 +91,18 @@ updateDemandeStatus(id: number, statut: string): Observable<any> {
       })
     );
 }
+
+// Récupérer les demandes par userId
+  getDemandesByUser(userId: number): Observable<Demandes[]> {
+    return this.http.get<Demandes[]>(`${apiUrl}/demandes/user/${userId}`, { headers: this.getHeaders() })
+      .pipe(
+        tap(response => console.log('Demandes récupérées pour l\'utilisateur:', response)),
+        catchError(error => {
+          console.error('Erreur lors de la récupération des demandes:', error);
+          return of([] as Demandes[]); // Retourne un tableau vide en cas d'erreur
+        })
+      );
+  }
+
 
 }

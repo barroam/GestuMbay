@@ -89,6 +89,23 @@ export class UsersService {
         catchError(this.handleError<any>('getContrat'))
       );
   }
+
+
+
+  getUserInfo(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`  // Assurez-vous d'envoyer le token avec la requête
+    });
+
+    return this.http.post<any>(`${apiUrl}/me`, {}, { headers })
+      .pipe(
+        tap(response => console.log('Informations utilisateur récupérées:', response)),
+        catchError(this.handleError<any>('getUserInfo', null))  // En cas d'erreur, renvoyer null
+      );
+  }
+
+
   // Gestion des erreurs
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
