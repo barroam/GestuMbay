@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Demandes } from '../../../../Models/demandes';
 import { InfoDemande } from '../../../../Models/info-demande';
 import { ControleDemande } from '../../../../Models/controle-demande';
-import { Engrais } from '../../../../Models/engrais';
+
 import { Equipements } from '../../../../Models/equipements';
 import { ActivatedRoute } from '@angular/router';
 import { DemandesService } from '../../../../Services/Demandes/demandes.service';
@@ -51,7 +51,7 @@ export class AdminDemandesShowComponent implements OnInit {
         if (data.ressource && data.ressource.id) {
           this.chargerDetailsRessource(data.ressource.id);
         }
-        
+
         console.log('Demande:', this.demande);
         console.log('Info Demande:', this.infoDemande);
         console.log('Contrôle Demande:', this.controleDemande);
@@ -79,7 +79,7 @@ export class AdminDemandesShowComponent implements OnInit {
         })) || [];
 
         this.equipements = data.equipements || [];
-        
+
         console.log('Semences:', this.semences);
         console.log('Engrais:', this.engrais);
         console.log('Equipements:', this.equipements);
@@ -168,13 +168,13 @@ export class AdminDemandesShowComponent implements OnInit {
       console.error('ID de la demande non défini');
       return;
     }
-  
+
     if (confirm(`Êtes-vous sûr de vouloir ${newStatus === 'approuvee' ? 'approuver' : 'refuser'} cette demande ?`)) {
       this.demandesService.updateDemandeStatus(id, newStatus).subscribe(
         response => {
           console.log('Statut mis à jour avec succès:', response);
           alert(`La demande a été ${newStatus === 'approuvee' ? 'approuvée' : 'refusée'} avec succès.`);
-          
+
           // Vérifiez que this.demande n'est pas null avant de l'utiliser
           if (this.demande) {
             this.demande.statut = newStatus; // Mise à jour du statut local
@@ -187,7 +187,7 @@ export class AdminDemandesShowComponent implements OnInit {
       );
     }
   }
-  
-  
+
+
 }
 

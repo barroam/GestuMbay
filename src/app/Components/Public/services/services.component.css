@@ -1,0 +1,103 @@
+.hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://letechobservateur.sn/pasuboj-galerie/2024/04/AGRICULTURE.jpeg);
+  padding: 12% 2% 2% 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+}
+.text-green {
+  color: #1f8226;
+}
+.bg-light-green {
+  background-color: #f8f9fa;
+}
+.btn_lg{
+  
+}
+.feature {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.feature:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-5px);
+}
+.icon-box {
+  font-size: 2rem;
+  margin-right: 1rem;
+  color: #1f8226;
+}
+.section-title {
+
+  padding-left: 1rem;
+}
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  background-color: #f8f9fa;
+  border: 2px solid #28a745;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  margin-top: 0.65rem;
+}
+
+.text-green {
+  color: #28a745;
+}
+
+.feature-box {  margin-bottom: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.feature-box h3 {
+  font-size: 1.5rem;
+}
+
+.feature-box p {
+  color: #6c757d;
+  line-height: 1.6;
+}
+
+.main-image {
+  object-fit: cover;
+border-radius: 0.3rem ;
+  z-index: 100;
+width:42rem;
+height: 32rem;
+margin: 00 auto;
+}
+
+.section-title {
+  color: #28a745;
+  margin-bottom: 3rem;
+  font-weight: bold;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.section-title:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100px;
+  height: 3px;
+  background-color: #28a745;
+}
+
+.footer-bottom {
+  background-color: #1f8226;
+  color: white;
+  text-align: center;
+}
+.foo{
+  background-color: #ffff;
+  color: #1f8226;
+border-top: 0.2rem #1F8226 solid ;
+}

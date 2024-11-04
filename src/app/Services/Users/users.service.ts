@@ -29,7 +29,7 @@ export class UsersService {
 
   // Met à jour le profil de l'utilisateur
   updateProfile(profileData: any): Observable<any> {
-    return this.http.put<any>(`${apiUrl}/profile/update-profile`, profileData, { headers: this.getHeaders() })
+    return this.http.put<any>(`${apiUrl}/update-profile`, profileData, { headers: this.getHeaders() })
       .pipe(
         tap(response => console.log('Profil mis à jour:', response)),
         catchError(this.handleError<any>('updateProfile'))

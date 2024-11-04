@@ -10,7 +10,7 @@ import { DashbordAdminComponent } from './layout/dashbord-admin/dashbord-admin.c
 import { InfoDemandeurComponent } from './Demande/info-demandeur/info-demandeur.component';
 import { ControleComponent } from './Demande/controle/controle.component';
 import { AdminRessourceSemencesComponent } from './Components/Admin/Ressources/admin-ressource-semences/admin-ressource-semences.component';
-import path from 'path';
+
 import { AdminRessourceEquipementComponent } from './Components/Admin/Ressources/admin-ressource-equipement/admin-ressource-equipement.component';
 import { AdminRessourceEngraisComponent } from './Components/Admin/Ressources/admin-ressource-engrais/admin-ressource-engrais.component';
 
@@ -58,6 +58,13 @@ import { FournisseursDashbordComponent } from './Components/Fournisseurs/fournis
 import { FournisseursContratsComponent } from './Components/Fournisseurs/fournisseurs-contrats/fournisseurs-contrats.component';
 import { FournisseursProjetsComponent } from './Components/Fournisseurs/fournisseurs-projets/fournisseurs-projets.component';
 import { FournisseursRessourcesComponent } from './Components/Fournisseurs/fournisseurs-ressources/fournisseurs-ressources.component';
+import { authGuard } from './Guards/Auth/auth.guard';
+import { adminGuard } from './Guards/Admin/admin.guard';
+import { ROAGuard } from './Guards/ROA/roa.guard';
+import { agriculteurGuard } from './Guards/Agriculteur/auth.guard';
+import { fournisseurGuard } from './Guards/Fournisseur/auth.guard';
+import { ServicesComponent } from './Components/Public/services/services.component';
+import { FormatiomComponent } from './Components/Public/formatiom/formatiom.component';
 
 
 export const routes: Routes = [
@@ -65,51 +72,55 @@ export const routes: Routes = [
     //Les ROUTES PRINCIPALES
 {path: '',component:AccueilComponent},
 {path:'auth',component:AuthPrincipalComponent},
-{path:'demande-info-demandeur',component:InfoDemandeurComponent},
-{path:'demande-controle-eligibilite',component:ControleComponent},
-{path:'demande-ressource',component:DemandeRessourcesComponent},
-{path:'demande-titre',component:FinirDemandeComponent},
+{path:'services',component:ServicesComponent},
+{path:'formations',component:FormatiomComponent},
+
+
+{path:'demande-info-demandeur',component:InfoDemandeurComponent,canActivate: [authGuard] },
+{path:'demande-controle-eligibilite',component:ControleComponent,canActivate: [authGuard] },
+{path:'demande-ressource',component:DemandeRessourcesComponent,canActivate: [authGuard] },
+{path:'demande-titre',component:FinirDemandeComponent,canActivate: [authGuard] },
 
 
 //LES ROUTES ADMIN
 {
     path: '',
-    component: DashbordAdminComponent,
+    component: DashbordAdminComponent, canActivate: [authGuard, adminGuard],
     children: [
         {path: '', redirectTo: 'Dashbord-Admin-Accueil', pathMatch: 'full'},
         {path: 'Dashbord-Admin-Accueil', component: DashbordComponent},
         {path: 'Dashbord-Admin-Utilisateurs',
-         component: AdminUsersComponent,
+         component: AdminUsersComponent, canActivate: [authGuard, adminGuard],
             children: [
                 {path: '', redirectTo: 'liste', pathMatch: 'full'},
                 {path: 'liste', component: AdminUserListComponent},
-                {path: 'inscription', component: AdminInscriptionComponent}, 
+                {path: 'inscription', component: AdminInscriptionComponent},
             ]
         },{
-            path: 'Dashbord-Admin-Demandes', component: AdminDemandesComponent,
+            path: 'Dashbord-Admin-Demandes', component: AdminDemandesComponent, canActivate: [authGuard, adminGuard],
             children: [
                 {path: '', redirectTo: 'liste', pathMatch: 'full'},
                 {path: 'liste', component: AdminDemandesListComponent},
-                {path: 'show/:id', component: AdminDemandesShowComponent}, 
-                {path: 'add-or-update', component: AdminDemandesAddUpdateComponent}, 
-                {path: 'add-or-update/:id', component: AdminDemandesAddUpdateComponent}, 
+                {path: 'show/:id', component: AdminDemandesShowComponent},
+                {path: 'add-or-update', component: AdminDemandesAddUpdateComponent},
+                {path: 'add-or-update/:id', component: AdminDemandesAddUpdateComponent},
             ]
         },
         {
             path: 'Dashbord-Admin-Projets',
-            component: AdminProjetComponent,
+            component: AdminProjetComponent, canActivate: [authGuard, adminGuard],
             children: [
                 {path: '', redirectTo: 'liste', pathMatch: 'full'},
                 {path: 'liste', component: AdminProjetListComponent},
-                {path: 'show/:id', component: AdminProjetShowComponent}, 
-                {path: 'add-or-update', component: AdminProjetAddUpdateComponent}, 
-                {path: 'add-or-update/:id', component: AdminProjetAddUpdateComponent}, 
+                {path: 'show/:id', component: AdminProjetShowComponent},
+                {path: 'add-or-update', component: AdminProjetAddUpdateComponent},
+                {path: 'add-or-update/:id', component: AdminProjetAddUpdateComponent},
                 { path: 'historique/:id', component: AdminProjetHistoriquesComponent }
             ]
         },
         {
             path: 'Dashbord-Admin-Contrats',
-            component: AdminContratComponent,
+            component: AdminContratComponent,canActivate: [authGuard, adminGuard],
             children: [
                 {path: '', redirectTo: 'liste', pathMatch: 'full'},
                 {path: 'liste', component: AdminContratListComponent},
@@ -120,7 +131,7 @@ export const routes: Routes = [
         },
         {
             path: 'Dashbord-Admin-Ressources',
-            component: AdminRessourceListComponent,
+            component: AdminRessourceListComponent, canActivate: [authGuard, adminGuard],
             children: [
                 {path: '', redirectTo: 'Semences', pathMatch: 'full'},
                 {path: 'Semences', component: AdminRessourceSemencesComponent},
@@ -133,12 +144,12 @@ export const routes: Routes = [
 
 {
     path: '',
-    component: DashbordRoaComponent,
+    component: DashbordRoaComponent,   canActivate: [authGuard, ROAGuard],
     children: [
         {path: '', redirectTo: 'Dashbord-ROA-Accueil', pathMatch: 'full'},
         {path: 'Dashbord-ROA-Accueil', component: ROADashbordComponent },
         {path: 'Dashbord-ROA-Demandes',
-         component:ROADemandesComponent ,
+         component:ROADemandesComponent ,    canActivate: [authGuard, ROAGuard],
           children: [
             {path: '', redirectTo: 'liste',pathMatch:'full'},
             {path: 'liste', component: ROADemandesListeComponent},
@@ -148,7 +159,7 @@ export const routes: Routes = [
          ]
 
         },
-        {path: 'Dashbord-ROA-Contrats', 
+        {path: 'Dashbord-ROA-Contrats',    canActivate: [authGuard, ROAGuard],
             component: ROAContratsComponent , children: [
                 {path: '', redirectTo: 'liste',pathMatch:'full'},
                 {path: 'liste', component:ROAContratsListeComponent },
@@ -158,7 +169,8 @@ export const routes: Routes = [
             ]
         },
         {path: 'Dashbord-ROA-Projets',
-         component: ROAProjetsComponent , children: [
+         component: ROAProjetsComponent ,    canActivate: [authGuard, ROAGuard],
+          children: [
             {path: '', redirectTo: 'liste',pathMatch:'full'},
             {path: 'liste', component:ROAProjetsListComponent },
             {path: 'show/:id', component:ROAProjetsShowComponent},
@@ -166,7 +178,7 @@ export const routes: Routes = [
             {path: 'add-or-update/:id', component:ROAProjetsAddUpdateComponent },
          ]
         },
-        {path: 'Dashbord-ROA-Ressources', component: RoaRessourceListeComponent,
+        {path: 'Dashbord-ROA-Ressources', component: RoaRessourceListeComponent,    canActivate: [authGuard, ROAGuard],
             children: [
                 {path: '', redirectTo: 'Semences', pathMatch: 'full'},
                 {path: 'Semences', component:RoaRessourceSemencesComponent},
@@ -174,8 +186,8 @@ export const routes: Routes = [
                 {path: 'Engrais', component:RoaRessourceEngraisComponent},
             ]
         },
-    
-    
+
+
     ]
 },
 
@@ -183,7 +195,7 @@ export const routes: Routes = [
 //LES ROUTES POUR L'AGRICULTEURS
 {
     path: '',
-    component: DashbordAgriculteurComponent,
+    component: DashbordAgriculteurComponent,   canActivate: [authGuard, agriculteurGuard],
     children: [
         {path: '', redirectTo: 'Dashbord-Agriculteur-Accueil', pathMatch: 'full'},
         {path: 'Dashbord-Agriculteur-Accueil', component:AgriculteursDashbordComponent },
@@ -196,7 +208,7 @@ export const routes: Routes = [
 
 {
     path: '',
-    component: DashbordFournisseurComponent,
+    component: DashbordFournisseurComponent,  canActivate: [authGuard, fournisseurGuard],
     children: [
         {path: '', redirectTo: 'Dashbord-Fournisseur-Accueil', pathMatch: 'full'},
         {path: 'Dashbord-Fournisseur-Accueil',component:FournisseursDashbordComponent },
@@ -220,6 +232,6 @@ export const routes: Routes = [
 ];
 
 
- 
+
 
 

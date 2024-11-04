@@ -1,0 +1,228 @@
+<app-header></app-header>
+<!-- Bannière de Présentation avec Image -->
+<section class="banner-section">
+  <div class="banner-overlay">
+    <div class="banner-content">
+      <h1 class="banner-title">Apprenez et Testez vos Connaissances en Agriculture Numérique</h1>
+      <p class="banner-description">Explorez des modules d'apprentissage complets et évaluez votre savoir-faire avec des quiz interactifs. Améliorez vos compétences agricoles grâce à la technologie !</p>
+      <div class="banner-buttons">
+        <button class="banner-btn" onclick="scrollToSection('learning-modules')">Commencer l'Apprentissage</button>
+        <button class="banner-btn quiz-btn" onclick="scrollToSection('quiz-section')">Faire un Quiz</button>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container mt-4 formation-container p-4">
+
+  <!-- Header with Progress -->
+  <header class="formation-header m-4">
+    <h1 class="text-success  mb-4">Formation Agriculture Numérique</h1>
+    <div class="progress mb-3">
+      <div [style.width.%]="(currentVideoIndex + 1) / videos.length * 100"
+           class="progress-bar vert-background"></div>
+    </div>
+  </header>
+  <h3 class="text-center m-4 d-inline">{{ currentVideo.title }}</h3>
+  <!-- Main Content -->
+  <div class="d-flex flex-wrap">
+
+    <!-- Video Section -->
+    <div class="col-12 col-lg-7 pe-lg-4">
+
+      <div class="video-section mt-4">
+        <div class="video-wrapper">
+          <iframe [src]="currentVideoSafeUrl"
+                 frameborder="0"
+                 allow="autoplay; encrypted-media"
+                 allowfullscreen
+                 [attr.title]="currentVideo.title">
+          </iframe>
+        </div>
+        <div class="video-info p-3">
+          <span class="duration">Durée: {{ currentVideo.duration }}</span>
+          <p class="description">{{ currentVideo.description }}</p>
+        </div>
+        <div class="video-controls">
+          <button (click)="setCurrentVideo(currentVideoIndex - 1)"
+                  class="btn-nav"
+                  [disabled]="currentVideoIndex === 0">
+            ◀️ Précédent
+          </button>
+          <button (click)="setCurrentVideo(currentVideoIndex + 1)"
+                  class="btn-nav"
+                  [disabled]="currentVideoIndex === videos.length - 1">
+            Suivant ▶️
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-12 col-lg-5 mt-4 mt-lg-0">
+      <aside class="sidebar">
+        <section class="video-list">
+          <h3>Programme</h3>
+          <ul>
+            <li *ngFor="let video of videos; let i = index" class="my-2">
+              <button (click)="setCurrentVideo(i)"
+                      [class.active]="i === currentVideoIndex"
+                      class="video-selector">
+                <span class="video-number">{{ i + 1 }}</span>
+                <div class="video-info">
+                  <span class="video-title">{{ video.title }}</span>
+                  <span class="video-duration">{{ video.duration }}</span>
+                </div>
+                <span class="completion-status" *ngIf="i < currentVideoIndex">✓</span>
+              </button>
+            </li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Quiz Section -->
+  <section class="quiz-section text-center my-5" *ngIf="!quizStarted">
+    <button class="btn vert-background btn-lg text-light " (click)="startQuiz()">Commencer le Quiz</button>
+  </section>
+
+  <section class="quiz-content container my-5" *ngIf="quizStarted && !quizCompleted">
+    <h1 class="text-success  mb-4">Quiz d'Évaluation</h1>
+
+    <!-- Quiz Progress -->
+    <div class="quiz-progress mb-3">
+      <div class="progress">
+        <div class="progress-bar vert-background "
+             role="progressbar"
+             [style.width.%]="(answeredQuestions / quizQuestions.length) * 100">
+        </div>
+      </div>
+    </div>
+
+    <!-- Questions -->
+    <div class="row g-4">
+      <div *ngFor="let question of quizQuestions; let i = index"
+           class="col-md-6 question-card   border-0 "
+           [class.bg-light]="question.userAnswer !== null">
+           <div class="p-3 border rounded shadow-sm ">
+        <div class="question-header d-flex justify-content-between align-items-center ">
+          <span class="number fw-bold vert-color">Question {{ i + 1 }}</span>
+          <span class="category text-muted">{{ question.category }}</span>
+        </div>
+
+        <p class="question-text mt-2">{{ question.question }}</p>
+
+        <!-- Answer Options -->
+        <div class="answer-options mt-3" *ngIf="question.userAnswer === null">
+          <button (click)="answerQuestion(i, true)"
+                  class="btn btn-outline-success me-2">
+            Vrai
+          </button>
+          <button (click)="answerQuestion(i, false)"
+                  class="btn btn-outline-danger">
+            Faux
+          </button>
+        </div>
+
+        <!-- Feedback -->
+        <div class="feedback mt-3" *ngIf="question.userAnswer !== null">
+          <div [class]="'feedback-content ' + (question.isCorrect ? 'vert-color' : 'text-danger')">
+            <span class="icon me-2">{{ question.isCorrect ? '✓' : '✗' }}</span>
+            <p class="explanation d-inline">{{ question.explanation }}</p>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <button class="btn vert-background text-light btn-lg mt-4"
+            (click)="finishQuiz()"
+            [disabled]="answeredQuestions < quizQuestions.length">
+      Terminer le Quiz
+    </button>
+  </section>
+
+  <!-- Quiz Results -->
+  <section class="quiz-results text-center my-5" *ngIf="quizCompleted">
+    <h3 class="vert-color">Résultats du Quiz</h3>
+
+    <div class="results-summary mt-4">
+      <div class="score mb-4">
+        <h4>Score Final</h4>
+        <p>{{ quizResults.score }} / {{ quizResults.totalQuestions }}</p>
+        <p class="percentage">{{ quizResults.percentage }}%</p>
+      </div>
+
+      <div class="category-scores">
+        <h4>Scores par Catégorie</h4>
+        <ul class="list-unstyled">
+          <li *ngFor="let category of getCategories()" class="mb-2">
+            <span class="category-name fw-bold vert-color">{{ category }}</span>
+            <span class="category-score ms-2">
+              {{ getCategoryScore(category) }}
+              ({{ getCategoryPercentage(category) | number:'1.0-0' }}%)
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="btn btn-outline-success btn-lg mt-4" (click)="resetQuiz()">
+      Recommencer le Quiz
+    </button>
+  </section>
+</div>
+
+
+<footer class="foo py-4">
+  <div class="container">
+      <div class="row">
+          <!-- Section à propos -->
+          <div class="col-md-4">
+              <h5 class="text-uppercase fw-bold">Géstu Mbay</h5>
+              <p class="small">Nous sommes spécialisés dans la gestion agricole avec des solutions innovantes pour les agriculteurs. Explorez nos services pour optimiser vos cultures et vos rendements.</p>
+          </div>
+
+          <!-- Section liens -->
+          <div class="col-md-2">
+              <h6 class="text-uppercase">Liens</h6>
+              <ul class="list-unstyled">
+                  <li><a href="#" class="text-success text-decoration-none">Accueil</a></li>
+                  <li><a href="#" class="text-success text-decoration-none">Services</a></li>
+                  <li><a href="#" class="text-success text-decoration-none">Projets</a></li>
+                  <li><a href="#" class="text-success text-decoration-none">Contact</a></li>
+              </ul>
+          </div>
+
+          <!-- Section ressources -->
+          <div class="col-md-2">
+              <h6 class="text-uppercase">Ressources</h6>
+              <ul class="list-unstyled">
+                  <li><a href="#" class="text-success text-decoration-none">Blog</a></li>
+                  <li><a href="#" class="text-success text-decoration-none">FAQ</a></li>
+                  <li><a href="#" class="text-success text-decoration-none">Support</a></li>
+                  <li><a href="#" class="text-success text-decoration-none">Documentation</a></li>
+              </ul>
+          </div>
+
+          <!-- Section newsletter -->
+          <div class="col-md-4">
+              <h6 class="text-uppercase">Abonnez-vous</h6>
+              <p class="small">Recevez nos dernières mises à jour directement dans votre boîte mail.</p>
+              <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Entrez votre email" aria-label="Recipient's email">
+                  <button class="btn text-white" type="button" style="background-color: #28a745;">S'abonner</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+</footer>
+
+ <!-- Footer bottom -->
+ <div class="footer-bottom py-2 ">
+  <div class="container">
+      <p class="mb-0 text-white">© 2024 Géstu Mbay. Tous droits réservés.</p>
+  </div>
+</div>

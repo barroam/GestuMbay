@@ -4,7 +4,7 @@ import { StorageService } from '../Storage/storage.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const storageService = inject(StorageService);
-  
+
   // Récupérer le token à partir de StorageService
   const token = storageService.getLocalItem('access_token');
 

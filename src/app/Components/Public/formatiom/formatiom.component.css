@@ -1,0 +1,450 @@
+/* Suite des styles précédents */
+
+.video-section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+
+
+.description {
+  color: #424242;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.duration {
+  color: #757575;
+  font-size: 0.9rem;
+}
+
+.video-controls {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.btn-nav {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #2e7d32;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-nav:hover {
+  background-color: #1b5e20;
+}
+
+.btn-nav:disabled {
+  background-color: #c8e6c9;
+  cursor: not-allowed;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.video-list {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.video-list h3 {
+  color: #1b5e20;
+  margin-bottom: 1rem;
+}
+
+.video-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.video-selector {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-radius: 6px;
+  text-align: left;
+}
+
+.video-selector:hover {
+  background-color: #f1f8e9;
+}
+
+.video-selector.active {
+  background-color: #c8e6c9;
+}
+
+.video-number {
+  width: 24px;
+  height: 24px;
+  background-color: #2e7d32;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.video-info {
+  flex: 1;
+}
+
+.video-title {
+  display: block;
+  font-weight: 500;
+  color: #1b5e20;
+  margin-bottom: 0.25rem;
+}
+
+.video-duration {
+  font-size: 0.9rem;
+  color: #757575;
+}
+
+.completion-status {
+  color: #2e7d32;
+}
+
+/* Quiz Section Styles */
+.quiz-section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.quiz-section h3 {
+  color: #1b5e20;
+  margin-bottom: 1rem;
+}
+
+.quiz-card {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.quiz-question {
+  font-size: 1.1rem;
+  color: #424242;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.quiz-option input[type="radio"] {
+  cursor: pointer;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #2e7d32;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-submit:hover {
+  background-color: #1b5e20;
+}
+
+.btn-submit:disabled {
+  background-color: #c8e6c9;
+  cursor: not-allowed;
+}
+
+
+/* Review Section Styles */
+.review-section {
+  margin-top: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.review-section h3 {
+  color: #1b5e20;
+  margin-bottom: 1.5rem;
+}
+
+.review-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  color: #424242;
+  font-weight: 500;
+}
+
+.form-control {
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #2e7d32;
+}
+
+.rating-input {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rating-value {
+  color: #757575;
+  min-width: 3rem;
+}
+
+/* Popup Styles */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.popup-content h4 {
+  color: #1b5e20;
+  margin-bottom: 1rem;
+}
+
+.btn-close {
+  margin-top: 1.5rem;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #2e7d32;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-close:hover {
+  background-color: #1b5e20;
+}
+
+
+.footer-bottom {
+  background-color: #1f8226;
+  color: white;
+  text-align: center;
+}
+.foo{
+  background-color: #ffff;
+  color: #1f8226;
+border-top: 0.2rem #1F8226 solid ;
+}
+.vert-background{
+ background-color: #1F8226;
+}
+.vert-color{
+  color: #1F8226;
+ }
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .formation-container {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-controls {
+    flex-direction: column;
+  }
+
+  .btn-nav {
+    width: 100%;
+  }
+
+  .review-form {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .popup-content {
+    padding: 1.5rem;
+  }
+
+  .video-selector {
+    padding: 0.75rem;
+  }
+}
+/* Style de la Bannière */
+.banner-section {
+  background-image: url('https://img.freepik.com/photos-gratuite/gros-plan-laboratoire-recherche-scientifique-microscope-flacon-tubes-essai-verre-arbrisseau_482257-4582.jpg?t=st=1730720113~exp=1730723713~hmac=f6f59f66fb21cbede30926d97d8708f5c18d67dd6081c4c3f9f098be59991040&w=1380'); /* Remplace avec l'URL de ton image */
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+  text-align: start;
+  padding: 4rem 1rem;
+  position: relative;
+  overflow: hidden;
+  height: 46vh; /* Hauteur de la bannière */
+  display: flex;
+  align-items: start;
+  justify-content: start;
+}
+
+.banner-overlay {
+  background-color: rgba(0, 0, 0, 0.6); /* Assombrit l'image */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 0 12rem;
+}
+
+.banner-content {
+  max-width: 800px;
+  z-index: 1;
+}
+
+.banner-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.banner-description {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.banner-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: start;
+}
+
+.banner-btn {
+  background-color: #ffffff;
+  color: #2e7d32;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.banner-btn:hover {
+  background-color: #c8e6c9; /* Vert clair au survol */
+}
+
+.quiz-btn {
+  background-color: #ffa000; /* Couleur orange pour distinguer le bouton du quiz */
+  color: #ffffff;
+}
+
+.quiz-btn:hover {
+  background-color: #ffcc80; /* Couleur plus claire au survol */
+}
+
+@media (max-width: 768px) {
+  .banner-title {
+    font-size: 2rem;
+  }
+
+  .banner-description {
+    font-size: 1rem;
+  }
+
+  .banner-buttons {
+    flex-direction: column;
+  }
+}

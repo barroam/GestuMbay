@@ -5,13 +5,13 @@ import { AuthService } from '../../Services/Auth/auth.service';
 import { inject } from '@angular/core';
 
 
-export const ROAGuard: CanActivateFn = (route, state) => {
+export const agriculteurGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-  if (user && user.roles && user.roles.includes('ROA')) {
+  if (user && user.roles && user.roles.includes('agriculteur')) {
     return true;
   }
 
