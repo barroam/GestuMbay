@@ -359,9 +359,10 @@ border-top: 0.2rem #1F8226 solid ;
     padding: 0.75rem;
   }
 }
+
 /* Style de la Bannière */
 .banner-section {
-  background-image: url('https://img.freepik.com/photos-gratuite/gros-plan-laboratoire-recherche-scientifique-microscope-flacon-tubes-essai-verre-arbrisseau_482257-4582.jpg?t=st=1730720113~exp=1730723713~hmac=f6f59f66fb21cbede30926d97d8708f5c18d67dd6081c4c3f9f098be59991040&w=1380'); /* Remplace avec l'URL de ton image */
+  background-color:#2e7d32; /* Remplace avec l'URL de ton image */
   background-size: cover;
   background-position: center;
   color: #ffffff;
