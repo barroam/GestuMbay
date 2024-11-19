@@ -1,1 +1,239 @@
-<p>assistance works!</p>
+<app-header></app-header>
+<!-- assistance.component.html -->
+<section class="banner-section">
+  <div class="banner-overlay">
+    <div class="banner-content">
+      <h1 class="banner-title">Apprenez et Testez vos Connaissances en Agriculture Numérique</h1>
+      <p class="banner-description">Explorez des modules d'apprentissage complets et évaluez votre savoir-faire avec des quiz interactifs. Améliorez vos compétences agricoles grâce à la technologie !</p>
+    </div>
+  </div>
+</section>
+<div class="container mt-4 formation-container p-4">
+
+<div class="container mt-5">
+  <!-- Section Vidéos -->
+  <section class="video-section mb-5">
+    <h2 class="text-center mb-4">Tutoriels Vidéo</h2>
+    <div class="row">
+      <div class="col-md-12" *ngFor="let video of videoTutorials">
+        <div class="video-card">
+          <!-- Vignette vidéo cliquable -->
+          <div
+            class="video-thumbnail"
+            (click)="toggleVideo(video)"
+            (keydown.enter)="toggleVideo(video)"
+            [attr.aria-label]="'Regarder la vidéo : ' + video.title"
+            role="button"
+            tabindex="0">
+            <img [src]="video.thumbnail" [alt]="video.title" class="img-fluid " id="photo">
+            <div class="play-button" [class.active]="video.isPlaying" aria-hidden="true">
+              <i class="fas" [class.fa-play]="!video.isPlaying" [class.fa-pause]="video.isPlaying"></i>
+            </div>
+          </div>
+
+          <!-- Lecteur vidéo intégré -->
+          <div class="video-player" *ngIf="video.isPlaying">
+            <iframe
+              [src]="video.safeUrl"
+              [title]="video.title"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+
+          <div class="video-info">
+            <h3>{{video.title}}</h3>
+            <p>{{video.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="row">
+    <!-- Formulaire de Contact -->
+    <div class="col-lg-6 ">
+      <h2>Contactez-nous</h2>
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form ">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nom</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            [attr.aria-invalid]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
+            aria-describedby="nameError">
+          <div
+            id="nameError"
+            class="invalid-feedback"
+            *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
+            role="alert">
+            Le nom est requis
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Adresse e-mail</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            [attr.aria-invalid]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
+            aria-describedby="emailError">
+          <div
+            id="emailError"
+            class="invalid-feedback"
+            *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
+            role="alert">
+            Une adresse e-mail valide est requise
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="subject" class="form-label">Sujet</label>
+          <select
+            class="form-select"
+            id="subject"
+            formControlName="subject"
+            [attr.aria-invalid]="contactForm.get('subject')?.invalid && contactForm.get('subject')?.touched"
+            aria-describedby="subjectError">
+            <option value="">Choisissez un sujet</option>
+            <option value="technique">Problème technique</option>
+            <option value="compte">Gestion de compte</option>
+            <option value="formation">Question sur les formations</option>
+            <option value="autre">Autre</option>
+          </select>
+          <div
+            id="subjectError"
+            class="invalid-feedback"
+            *ngIf="contactForm.get('subject')?.invalid && contactForm.get('subject')?.touched"
+            role="alert">
+            Veuillez sélectionner un sujet
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="message" class="form-label">Message</label>
+          <textarea
+            class="form-control"
+            id="message"
+            rows="5"
+            formControlName="message"
+            [attr.aria-invalid]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
+            aria-describedby="messageError"></textarea>
+          <div
+            id="messageError"
+            class="invalid-feedback"
+            *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
+            role="alert">
+            Le message est requis
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="!contactForm.valid"
+          aria-label="Envoyer le message">
+          Envoyer
+        </button>
+      </form>
+    </div>
+
+    <!-- FAQ -->
+    <div class="col-lg-6">
+      <h2>FAQ</h2>
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item faq-item mb-3" *ngFor="let faq of faqItems; let i = index">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button"
+              [class.collapsed]="i !== 0"
+              type="button"
+              [attr.aria-expanded]="i === 0"
+              [attr.aria-controls]="'faq' + i"
+              [attr.data-bs-toggle]="'collapse'"
+              [attr.data-bs-target]="'#faq' + i">
+              {{faq.question}}
+            </button>
+          </h2>
+          <div
+            [id]="'faq' + i"
+            class="accordion-collapse collapse"
+            [class.show]="i === 0"
+            role="region"
+            [attr.aria-labelledby]="'faqHeading' + i">
+            <div class="accordion-body">
+              {{faq.answer}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de succès -->
+<div class="success-modal" *ngIf="showSuccessModal">
+  <div class="success-modal-content">
+    <h3>Message envoyé !</h3>
+    <p>Votre message a été envoyé avec succès. Nous vous répondrons dans les plus brefs délais.</p>
+  </div>
+</div>
+</div>
+
+<footer class="foo py-4">
+  <div class="container">
+      <div class="row">
+          <!-- Section à propos -->
+          <div class="col-md-4">
+              <h5 class="text-uppercase fw-bold">Géstu Mbay</h5>
+              <p class="small">Nous sommes spécialisés dans la gestion agricole avec des solutions innovantes pour les agriculteurs. Explorez nos services pour optimiser vos cultures et vos rendements.</p>
+          </div>
+
+          <!-- Section liens -->
+          <div class="col-md-2">
+              <h6 class="text-uppercase">Liens</h6>
+              <ul class="list-unstyled">
+                  <li><a href="#" class="text-success text-decoration-none">Accueil</a></li>
+                  <li><a href="#" class="text-success text-decoration-none">Services</a></li>
+                  <li><a href="#" class="text-success text-decoration-none">Projets</a></li>
+                  <li><a href="#" class="text-success text-decoration-none">Contact</a></li>
+              </ul>
+          </div>
+
+          <!-- Section ressources -->
+          <div class="col-md-2">
+              <h6 class="text-uppercase">Ressources</h6>
+              <ul class="list-unstyled">
+                  <li><a href="#" class="text-success text-decoration-none">Blog</a></li>
+                  <li><a href="#" class="text-success text-decoration-none">FAQ</a></li>
+                  <li><a href="#" class="text-success text-decoration-none">Support</a></li>
+                  <li><a href="#" class="text-success text-decoration-none">Documentation</a></li>
+              </ul>
+          </div>
+
+          <!-- Section newsletter -->
+          <div class="col-md-4">
+              <h6 class="text-uppercase">Abonnez-vous</h6>
+              <p class="small">Recevez nos dernières mises à jour directement dans votre boîte mail.</p>
+              <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Entrez votre email" aria-label="Recipient's email">
+                  <button class="btn text-white" type="button" style="background-color: #28a745;">S'abonner</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+</footer>
+
+ <!-- Footer bottom -->
+ <div class="footer-bottom py-2 ">
+  <div class="container">
+      <p class="mb-0 text-white">© 2024 Géstu Mbay. Tous droits réservés.</p>
+  </div>
+</div>

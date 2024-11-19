@@ -1,4 +1,12 @@
 <div class="container mt-4">
+  <!-- Message si pas de contrat -->
+  <div *ngIf="!demande" class="text-center py-5">
+    <h2 class="text-success mb-3">Vous n'avez pas encore de contrat</h2>
+    <div class="empty-state mb-4">
+      <i class="fas fa-file-contract text-success" style="font-size: 8rem;"></i>
+    </div>
+  </div>
+<div class="container mt-4">
   <!-- Loading spinner -->
   <div *ngIf="loading" class="text-center">
     <div class="spinner-border text-success" role="status">

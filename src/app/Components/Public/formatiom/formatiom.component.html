@@ -13,7 +13,7 @@
   </div>
 </section>
 <div class="container mt-4 formation-container p-4">
-
+  
   <!-- Header with Progress -->
   <header class="formation-header m-4">
     <h1 class="text-success  mb-4">Formation Agriculture Numérique</h1>
@@ -82,8 +82,8 @@
   </div>
 
   <!-- Quiz Section -->
-  <section class="quiz-section text-center my-5" *ngIf="!quizStarted">
-    <button class="btn vert-background btn-lg text-light " (click)="startQuiz()">Commencer le Quiz</button>
+  <section class="quiz-section text-center my-5 border-0" *ngIf="!quizStarted">
+    <button class="btn vert-background btn-lg text-light border-0" (click)="startQuiz()">Commencer le Quiz</button>
   </section>
 
   <section class="quiz-content container my-5" *ngIf="quizStarted && !quizCompleted">

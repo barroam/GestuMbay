@@ -65,6 +65,8 @@ import { agriculteurGuard } from './Guards/Agriculteur/auth.guard';
 import { fournisseurGuard } from './Guards/Fournisseur/auth.guard';
 import { ServicesComponent } from './Components/Public/services/services.component';
 import { FormatiomComponent } from './Components/Public/formatiom/formatiom.component';
+import { AssistanceComponent } from './Components/Public/assistance/assistance.component';
+import { ContactComponent } from './Components/Public/contact/contact.component';
 
 
 export const routes: Routes = [
@@ -74,7 +76,8 @@ export const routes: Routes = [
 {path:'auth',component:AuthPrincipalComponent},
 {path:'services',component:ServicesComponent},
 {path:'formations',component:FormatiomComponent},
-
+{path:'centre-aide',component:AssistanceComponent},
+{path:'contact',component:ContactComponent},
 
 {path:'demande-info-demandeur',component:InfoDemandeurComponent,canActivate: [authGuard] },
 {path:'demande-controle-eligibilite',component:ControleComponent,canActivate: [authGuard] },
@@ -141,7 +144,7 @@ export const routes: Routes = [
         }
     ]
 },
-
+//ROA
 {
     path: '',
     component: DashbordRoaComponent,   canActivate: [authGuard, ROAGuard],

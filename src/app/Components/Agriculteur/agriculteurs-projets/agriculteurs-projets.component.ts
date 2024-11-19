@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PartageServicesService } from '../../../Services/partageServices/partage-services.service';
+
 import { ProjetsService } from '../../../Services/Projets/projets.service';
 import { AvisService } from '../../../Services/Avis/avis.service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
@@ -26,7 +26,7 @@ export class AgriculteursProjetsComponent implements OnInit {
   userName: string = '';
   contrat: any; // Variable pour stocker le contrat
   user: any; // Stocker les informations utilisateur
- 
+
   constructor(
     private projetsService: ProjetsService,
     private avisService: AvisService,

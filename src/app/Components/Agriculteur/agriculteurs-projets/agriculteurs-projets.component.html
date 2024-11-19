@@ -1,21 +1,29 @@
+<div class="container mt-4">
+  <!-- Message si pas de contrat -->
+  <div *ngIf="!projet" class="text-center py-5">
+    <h2 class="text-success mb-3">Vous n'avez pas encore de demandes</h2>
+    <div class="empty-state mb-4">
+      <i class="fas fa-project-diagram text-success" style="font-size: 8rem;"></i>
+    </div>
+  </div>
 <div class="container mt-4" *ngIf="projet" >
 
     <!-- Section des boutons d'action pour le projet -->
     <div class="row mb-3">
       <div class="col">
-        <button class="btn text-success btn-light me-2" routerLink="/Dashbord-Admin-Projets"> 
+        <button class="btn text-success btn-light me-2" routerLink="/Dashbord-Admin-Projets">
           <i class="fas fa-arrow-left"></i> Retour à la liste
         </button>
         <button class="btn text-success btn-light me-2" [routerLink]="['/Dashbord-Admin-Projets/historique', projet.id]">
           <i class="fas fa-history"></i> Historique
         </button>
-        <button class="btn text-success btn-light me-2" [routerLink]="['/Dashbord-Admin-Projets/add-or-update', projet.id]"> 
+        <button class="btn text-success btn-light me-2" [routerLink]="['/Dashbord-Admin-Projets/add-or-update', projet.id]">
           <i class="fas fa-edit"></i> Editer
         </button>
-       
+
       </div>
     </div>
-  
+
     <!-- Affichage des informations du projet -->
     <h1 class="text-success mb-4" > Projet :</h1>
     <div class="row mb-3">
@@ -31,40 +39,40 @@
         <strong>Date:</strong> {{ projet.date | date:'dd/MM/yyyy' }}
       </div>
     </div>
-  
+
     <!-- Sections Objectif, Attentes, Obstacles, etc. -->
     <div class="mb-4">
       <h4 class="text-success">Type d'activité</h4>
       {{ projet.type_activite }}
     </div>
-  
+
     <div class="mb-4">
       <h4 class="text-success">Attentes</h4>
       {{ projet.attentes }}
     </div>
-  
+
     <div class="mb-4">
       <h4 class="text-success">Obstacles</h4>
       {{ projet.obstacles }}
     </div>
-  
+
     <div class="mb-4">
       <h4 class="text-success">Solutions</h4>
       <p>{{ projet.solutions }}</p>
     </div>
-  
+
     <div class="mb-4" *ngIf="projet.date_fin">
       <h4 class="text-success">Date de fin</h4>
       {{ projet.date_fin | date:'dd/MM/yyyy' }}
     </div>
-    
+
 
 
 
     <h3 class="mt-4 mb-3">Avis</h3>
-  
+
   <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-  
+
   <!-- Liste des avis -->
   <div *ngFor="let avis of avisList" class="card mb-3">
     <div class="card-body">
@@ -81,7 +89,7 @@
       </p>
     </div>
   </div>
-  
+
   <!-- Formulaire pour ajouter/modifier un avis -->
   <div class="card mt-4" *ngIf="userId">
     <div class="card-body">
@@ -98,7 +106,7 @@
       </form>
     </div>
   </div>
-  
+
   <div *ngIf="!userId" class="alert alert-warning mt-4">
     Vous devez être connecté pour ajouter un avis.
   </div>
