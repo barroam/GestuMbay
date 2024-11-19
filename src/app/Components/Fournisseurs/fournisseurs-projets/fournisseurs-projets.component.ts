@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { PartageServicesService } from '../../../Services/partageServices/partage-services.service';
 import { ProjetsService } from '../../../Services/Projets/projets.service';
 import { AvisService } from '../../../Services/Avis/avis.service';
 import { StorageService } from '../../../Services/Storage/storage.service';
@@ -27,7 +26,7 @@ export class FournisseursProjetsComponent implements OnInit {
   userName: string = '';
   contrat: any; // Variable pour stocker le contrat
   user: any; // Stocker les informations utilisateur
- 
+
   constructor(
     private projetsService: ProjetsService,
     private avisService: AvisService,

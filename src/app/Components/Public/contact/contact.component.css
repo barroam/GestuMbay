@@ -1,0 +1,154 @@
+   /* Styles généraux */
+   .section-title {
+    text-align: center;
+    color: #1F8226;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: #4a5568;
+    margin-bottom: 2rem;
+  }
+
+  /* Style de la bannière héro */
+  .hero-banner {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+  }
+
+  /* Style pour la section équipe */
+  .team-section {
+    padding: 4rem 0;
+    background-color: #f7fafc;
+  }
+
+  .team-carousel {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .carousel-inner {
+    padding: 20px 0;
+  }
+
+  .team-member {
+    text-align: center;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    max-width: 18rem;
+
+  }
+
+  .team-member img {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    object-fit: cover;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 5%;
+    color: #1F8226;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: #1F8226;
+    border-radius: 50%;
+    padding: 10px;
+  }
+
+  .carousel-indicators button {
+    background-color: #1F8226;
+  }
+
+  /* Style pour la section contact */
+  .contact-info-section {
+    padding: 3rem 0;
+    background-color: #fff;
+  }
+
+  .contact-card {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 8px;
+    background: #f8fafc;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+  }
+
+  .contact-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .contact-icon {
+    font-size: 2.5rem;
+    color: #1F8226;
+    margin-bottom: 1rem;
+  }
+
+  /* Style pour le formulaire */
+  .form-control {
+    border-radius: 8px;
+    padding: 0.75rem;
+  }
+
+  .btn-success {
+    background-color: #1F8226;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-success:hover {
+    background-color: #094e0e;
+  }
+
+  /* Style pour la carte */
+  .map-container {
+    margin: 4rem auto;
+  }
+
+  .map-container iframe {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+
+.footer-bottom {
+  background-color: #1f8226;
+  color: white;
+  text-align: center;
+}
+.foo{
+  background-color: #ffff;
+  color: #1f8226;
+
+}

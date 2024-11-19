@@ -2,7 +2,7 @@ body {
     background-color: #f9f9f9;
   }
 
-  
+
   .status-card {
     padding: 20px;
     border-radius: 10px;
@@ -18,7 +18,7 @@ body {
     margin: 0;
   }
 
-  
+
   .header-icon {
     width: 24px;
     height: 24px;
@@ -38,4 +38,32 @@ body {
 
   .header-profile span {
     margin-left: 10px;
+  }
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    background-color: white;
+    border: 2px solid green;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    max-width: 300px;
+  }
+
+  .modal-content h3 {
+    color: green;
+  }
+
+  .modal-content button {
+    margin: 10px;
   }

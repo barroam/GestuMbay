@@ -7,22 +7,37 @@
       <div class="col-md-4 col-lg-2">
  <app-sidebar-roa></app-sidebar-roa>
       </div>
-      
+
       <!-- Main Content -->
       <div class="col-md-9 col-lg-10  ">
         <!-- Header and main content go here --> <header class="d-flex justify-content-between align-items-center py-3 px-4 bg-white shadow-sm">
             <div class="input-group border-1 border-success " style="width: 300px;">
                 <span class="input-group-text bg-light ">
-                    <i class="fas fa-search"></i> 
+                    <i class="fas fa-search"></i>
                 </span>
                 <input type="text" class="form-control " placeholder="Recherche">
               </div>
-              <div class="header-profile">
-                <span>{{ user?.name}}</span>  <h3 class="card-title m-2"><i class="fas fa-user-shield text-success"></i> </h3> 
+              <div class="header-profile d-flex">
+                <ng-container *ngIf="isAuthenticated">
+                  <h3 class="card-title m-2"><i class="fas fa-user-shield text-success"></i> </h3>
+                  <span class="navbar-text"><strong class="text-success">{{ username }} </strong></span>
+                  <button class="btn btn-outline-secondary ms-3" (click)="openModal()">  <i class="fas fa-sign-out"></i></button>
+              </ng-container>
+
               </div>
             </header>
         <router-outlet></router-outlet>
       </div>
     </div>
   </div>
-  
+
+
+  <!-- Modal de confirmation de déconnexion -->
+<div *ngIf="showModal" class="modal-overlay">
+  <div class="modal-content">
+      <h3>Confirmation de déconnexion</h3>
+      <p>Êtes-vous sûr de vouloir vous déconnecter ?</p>
+      <button class="btn btn-success" (click)="logout()">Oui</button>
+      <button class="btn btn-secondary" (click)="closeModal()">Annuler</button>
+  </div>
+</div>

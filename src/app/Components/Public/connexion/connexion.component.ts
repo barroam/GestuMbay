@@ -94,8 +94,8 @@ export class ConnexionComponent {
 
         console.log('Connexion réussie', response);
       },
-      error: (error) => {
-        this.errorMessage = error.error?.message || 'Erreur lors de la connexion';
+      error: (response) => {
+        this.errorMessage = response.error.errors?.message || 'Erreur lors de la connexion';
         console.error('Erreur de connexion', this.errorMessage);
       }
     });

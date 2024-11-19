@@ -1,0 +1,209 @@
+
+  <!-- CSS externes -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<app-header></app-header>
+  <!-- Bannière héro -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1 class="hero-title">Contactez Notre Équipe</h1>
+      <p class="hero-subtitle">Ensemble, construisons l'agriculture de demain</p>
+    </div>
+  </div>
+
+  <!-- Nouvelle section d'informations de contact -->
+  <section class="contact-info-section">
+    <div class="container">
+      <h2 class="section-title">Nos Coordonnées</h2>
+      <p class="section-subtitle">Plusieurs façons de nous joindre</p>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="contact-card">
+            <i class="fas fa-phone contact-icon"></i>
+            <h4>Téléphone</h4>
+            <p>+221 78 123 45 67</p>
+            <p>Du lundi au vendredi, 9h-17h</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="contact-card">
+            <i class="fas fa-envelope contact-icon"></i>
+            <h4>Email</h4>
+            <p>contactagridurable.sn</p>
+            <p>supportagridurable.sn</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="contact-card">
+            <i class="fas fa-map-marker-alt contact-icon"></i>
+            <h4>Adresse</h4>
+            <p>123 Avenue de l'Agriculture</p>
+            <p>Dakar, Sénégal</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section équipe avec carrousel -->
+  <section class="team-section">
+    <div class="container">
+      <h2 class="section-title">Notre Équipe</h2>
+      <p class="section-subtitle">Des experts passionnés à votre service</p>
+
+      <div id="teamCarousel" class="carousel slide team-carousel" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="team-member">
+              <img src="../../../../assets/images/image.png" alt="Marie Laurent">
+              <h4>Marie Laurent</h4>
+              <p>Directrice Agricole</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="team-member">
+              <img src="/api/placeholder/150/150" alt="Pierre Dubois">
+              <h4>Pierre Dubois</h4>
+              <p>Expert en Agroécologie</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="team-member">
+              <img src="/api/placeholder/150/150" alt="Sophie Martin">
+              <h4>Sophie Martin</h4>
+              <p>Conseillère Technique</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="team-member">
+              <img src="/api/placeholder/150/150" alt="Thomas Bernard">
+              <h4>Thomas Bernard</h4>
+              <p>Responsable Formation</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev" >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Précédent</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next" >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Suivant</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section formulaire de contact -->
+  <section class="my-5 pt-5">
+    <div class="container">
+      <h2 class="section-title">Nous Contacter</h2>
+      <p class="section-subtitle">Pour toute question ou demande spécifique, n'hésitez pas à remplir le formulaire ci-dessous :</p>
+
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <form>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="name" class="form-label">Nom</label>
+                <input type="text" class="form-control" id="name" required>
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="subject" class="form-label">Sujet</label>
+              <input type="text" class="form-control" id="subject" required>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control" id="message" rows="4" required></textarea>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-success">Envoyer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section carte -->
+  <div class="">
+    <h2 class="section-title">Localisez-Nous</h2>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61744.44456761672!2d-17.507024626563847!3d14.71102081171473!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec172f5b3c5bb71%3A0xb17c17d92d5db21f!2sDakar!5e0!3m2!1sfr!2ssn!4v1730826088061!5m2!1sfr!2ssn"
+      width="100%"iframe
+      height="600"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <footer class="foo py-4">
+    <div class="container">
+        <div class="row">
+            <!-- Section à propos -->
+            <div class="col-md-4">
+                <h5 class="text-uppercase fw-bold">Géstu Mbay</h5>
+                <p class="small">Nous sommes spécialisés dans la gestion agricole avec des solutions innovantes pour les agriculteurs. Explorez nos services pour optimiser vos cultures et vos rendements.</p>
+            </div>
+
+            <!-- Section liens -->
+            <div class="col-md-2">
+                <h6 class="text-uppercase">Liens</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-success text-decoration-none">Accueil</a></li>
+                    <li><a href="#" class="text-success text-decoration-none">Services</a></li>
+                    <li><a href="#" class="text-success text-decoration-none">Projets</a></li>
+                    <li><a href="#" class="text-success text-decoration-none">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Section ressources -->
+            <div class="col-md-2">
+                <h6 class="text-uppercase">Ressources</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-success text-decoration-none">Blog</a></li>
+                    <li><a href="#" class="text-success text-decoration-none">FAQ</a></li>
+                    <li><a href="#" class="text-success text-decoration-none">Support</a></li>
+                    <li><a href="#" class="text-success text-decoration-none">Documentation</a></li>
+                </ul>
+            </div>
+
+            <!-- Section newsletter -->
+            <div class="col-md-4">
+                <h6 class="text-uppercase">Abonnez-vous</h6>
+                <p class="small">Recevez nos dernières mises à jour directement dans votre boîte mail.</p>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Entrez votre email" aria-label="Recipient's email">
+                    <button class="btn text-white" type="button" style="background-color: #28a745;">S'abonner</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</footer>
+
+   <!-- Footer bottom -->
+   <div class="footer-bottom py-2 ">
+    <div class="container">
+        <p class="mb-0 text-white">© 2024 Géstu Mbay. Tous droits réservés.</p>
+    </div>
+</div>

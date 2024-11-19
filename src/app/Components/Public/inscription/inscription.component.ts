@@ -14,7 +14,7 @@ export class InscriptionComponent {
   inscriptionForm: FormGroup;
   errorMessage: string | null = null;
 
-  
+
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.inscriptionForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(255)]],

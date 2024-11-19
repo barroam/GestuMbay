@@ -1,69 +1,76 @@
-
 <div class="container mt-4">
+  <!-- Message si pas de contrat -->
+  <div *ngIf="!contrat" class="text-center py-5">
+    <h2 class="text-success mb-3">Vous n'avez pas encore de contrat</h2>
+    <div class="empty-state mb-4">
+      <i class="fas fa-file-contract text-success" style="font-size: 8rem;"></i>
+    </div>
+  </div>
+
+  <!-- Affichage du contrat si existe -->
+  <div *ngIf="contrat">
+    <div class="row mb-3">
+      <div class="col">
+        <button class="btn text-success btn-light me-2" routerLink="/Dashbord-Admin-Contrats/liste">
+          <i class="fas fa-arrow-left"></i> Retour à la liste
+        </button>
+        <button class="btn text-success btn-light me-2" [routerLink]="['/Dashbord-Admin-Contrats/historique', contrat.id]">
+          <i class="fas fa-history"></i> Historique
+        </button>
+        <button class="btn text-success btn-light me-2" [routerLink]="['/Dashbord-Admin-Contrats/add-or-update', contrat.id]">
+          <i class="fas fa-edit"></i> Editer
+        </button>
+      </div>
+    </div>
+
+    <h1 class="text-success mb-4">Contrat :</h1>
 
     <div class="row mb-3">
-        <div class="col">
-          <button class="btn text-success btn-light me-2"  routerLink="/Dashbord-Admin-Contrats/liste"> <i class="fas fa-arrow-left"></i> Retour à la liste</button>
-          <button class="btn text-success btn-light me-2" [routerLink]="['/Dashbord-Admin-Contrats/historique', contrat.id]">
-            <i class="fas fa-history"></i> Historique
-        </button>
-          <button class="btn text-success btn-light me-2" [routerLink]="['/Dashbord-Admin-Contrats/add-or-update', contrat.id]"> <i class="fas fa-edit"></i>  Editer</button>
-          
-       
-        </div>
+      <div class="col-md-2">
+        <strong>Etat:</strong>
+        <span class="badge m-2 p-2" [ngClass]="{
+          'bg-success': contrat.etat === 'terminer',
+          'bg-danger': contrat.etat === 'annuler',
+          'bg-white border border-success text-success': contrat.etat === 'en_cours'
+        }">
+          {{ contrat.etat }}
+        </span>
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-2">
+        <strong>Date:</strong> {{ contrat.date | date:'dd/MM/yyyy' }}
+      </div>
+      <div class="col-md-4"></div>
     </div>
-    
-    <h1 class="text-success mb-4">Contrat :</h1>
-    
-    <div class="row mb-3">
-        <div class="col-md-2">
-            <strong>Etat:</strong>   <span class="badge m-2 p-2" [ngClass]="{
-           
-              'bg-success': contrat.etat === 'terminer',
-              ' bg-danger': contrat.etat === 'annuler',
-              'bg-white border border-success text-success': contrat.etat === 'en_cours'
-            }">
-              {{ contrat.etat }}
-            </span>
-        </div>
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-2">
-            <strong>Date:</strong> {{ contrat.date | date:'dd/MM/yyyy' }}
-        </div>
-        <div class="col-md-4">
-        </div>
-    </div>
-    
+
     <div class="mb-4">
-        <h4 class="text-success">Objectif</h4>
-        {{ contrat.objectif }}
+      <h4 class="text-success">Objectif</h4>
+      <div class="p-3 bg-light rounded">{{ contrat.objectif }}</div>
     </div>
-    
+
     <div class="mb-4">
-        <h4 class="text-success">Mode de Paiement</h4>
-        {{ contrat.mode_paiement }}
+      <h4 class="text-success">Mode de Paiement</h4>
+      <div class="p-3 bg-light rounded">{{ contrat.mode_paiement }}</div>
     </div>
-    
+
     <div class="mb-4">
-        <h4 class="text-success">Nature du Paiement</h4>
-        {{ contrat.nature_paiement }}
-       
+      <h4 class="text-success">Nature du Paiement</h4>
+      <div class="p-3 bg-light rounded">{{ contrat.nature_paiement }}</div>
     </div>
-    
+
     <div class="mb-4">
-        <h4 class="text-success">Quantité </h4>
-        <p>{{ contrat.quantite }}</p>
-    
+      <h4 class="text-success">Quantité</h4>
+      <div class="p-3 bg-light rounded">{{ contrat.quantite }}</div>
     </div>
-    
+
     <div class="mb-4">
-        <h4 class="text-success">Préavis</h4>
-        {{ contrat.presvu }}
+      <h4 class="text-success">Préavis</h4>
+      <div class="p-3 bg-light rounded">{{ contrat.presvu }}</div>
     </div>
-    
+
     <div class="mb-4">
-        <h4 class="text-success">Cas de force majeure</h4>
-        <p> {{contrat.force_majeure}}</p>
+      <h4 class="text-success">Cas de force majeure</h4>
+      <div class="p-3 bg-light rounded">{{ contrat.force_majeure }}</div>
     </div>
+  </div>
 </div>
